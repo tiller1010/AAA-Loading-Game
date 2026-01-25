@@ -6,7 +6,7 @@ public class PlayerControls : MonoBehaviour
 {
     //[SerializeField] Transform target;
 
-    private float moveSpeed = 60.0f;
+    private float moveSpeed = 6.0f;
 
     InputAction moveAction;
 
@@ -33,8 +33,8 @@ public class PlayerControls : MonoBehaviour
         //Debug.Log(moveValue);
 
         movement = movement.normalized;
-        movement.x = -moveValue.x;
-        movement.z = -moveValue.y;
+        movement.x = moveValue.x;
+        movement.z = moveValue.y;
 
         movement *= moveSpeed;
         movement *= Time.deltaTime;
