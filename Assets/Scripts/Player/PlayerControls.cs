@@ -4,8 +4,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerControls : MonoBehaviour
 {
-    //[SerializeField] Transform target;
+    [SerializeField] Transform target;
 
+    private float rotationSpeed = 15.0f;
     private float moveSpeed = 6.0f;
 
     InputAction moveAction;
@@ -23,18 +24,24 @@ public class PlayerControls : MonoBehaviour
     {
         Vector3 movement = Vector3.zero;
 
-        //float horizontalInput = Input.GetAxis("Horizontal");
-        //float verticalInput = Input.GetAxis("Vertical");
-
-        //Debug.Log(horizontalInput);
-
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
+        float horizontalInput = moveValue.x;
+        float verticalInput = moveValue.y;
 
-        //Debug.Log(moveValue);
+        if (horizontalInput != 0 || verticalInput != 0)
+        {
+            movement.x = horizontalInput * moveSpeed;
+            movement.z = verticalInput * moveSpeed;
+            movement = Vector3.ClampMagnitude(movement, moveSpeed);
 
-        movement = movement.normalized;
-        movement.x = moveValue.x;
-        movement.z = moveValue.y;
+            Quaternion rotation = target.rotation;
+            target.eulerAngles = new Vector3(0, target.eulerAngles.y, 0);
+            movement = target.TransformDirection(movement);
+            target.rotation = rotation;
+
+            Quaternion direction = Quaternion.LookRotation(movement);
+            transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotationSpeed * Time.deltaTime);
+        }
 
         movement *= moveSpeed;
         movement *= Time.deltaTime;
