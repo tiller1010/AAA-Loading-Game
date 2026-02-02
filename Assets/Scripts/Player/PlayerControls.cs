@@ -13,11 +13,15 @@ public class PlayerControls : MonoBehaviour
 
     private CharacterController characterController;
 
+    private Animator animator;
+
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
 
         characterController = GetComponent<CharacterController>();
+
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -41,9 +45,14 @@ public class PlayerControls : MonoBehaviour
 
             Quaternion direction = Quaternion.LookRotation(movement);
             transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotationSpeed * Time.deltaTime);
+
+            animator.SetBool("Running", true);
+        } else
+        {
+            animator.SetBool("Running", false);
         }
 
-        movement *= moveSpeed;
+            movement *= moveSpeed;
         movement *= Time.deltaTime;
 
         characterController.Move(movement);
