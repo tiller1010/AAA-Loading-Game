@@ -6,8 +6,8 @@ public class PlayerControls : MonoBehaviour
 {
     [SerializeField] Transform target;
 
-    private float rotationSpeed = 15.0f;
-    private float moveSpeed = 6.0f;
+    public float rotationSpeed;
+    public float moveSpeed;
 
     InputAction moveAction;
 
@@ -56,5 +56,15 @@ public class PlayerControls : MonoBehaviour
         movement *= Time.deltaTime;
 
         characterController.Move(movement);
+    }
+
+    public void SetMoveSpeed(float speed)
+    {
+        moveSpeed = speed;
+    }
+
+    public void SetRotationSpeed(float speed)
+    {
+        rotationSpeed = speed;
     }
 }
