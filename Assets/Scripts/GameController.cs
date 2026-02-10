@@ -19,4 +19,9 @@ public class GameController : MonoBehaviour
         int nextSceneNumber = activeSceneNumber + 1;
         SceneManager.LoadScene("Level" + nextSceneNumber);
     }
+
+    public static void StartGame()
+    {
+        SceneManager.LoadScene("Level1");
+    }
 }
