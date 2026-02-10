@@ -52,7 +52,7 @@ public class PlayerControls : MonoBehaviour
             animator.SetBool("Running", false);
         }
 
-            movement *= moveSpeed;
+        movement *= moveSpeed;
         movement *= Time.deltaTime;
 
         characterController.Move(movement);
