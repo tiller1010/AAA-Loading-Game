@@ -47,9 +47,14 @@ public class PlayerControls : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotationSpeed * Time.deltaTime);
 
             animator.SetBool("Running", true);
+            animator.speed = 1f;
         } else
         {
             animator.SetBool("Running", false);
+            if (animator.GetBool("Shimmying"))
+            {
+                animator.speed = 0f;
+            }
         }
 
         movement *= moveSpeed;
