@@ -13,6 +13,9 @@ public class CameraOrbit : MonoBehaviour
     InputAction moveAction;
     InputAction lookAction;
 
+    private bool IsShimmyLocked = false;
+    private float ShimmyLockRotation = 1f;
+
     void Start()
     {
         rotationY = transform.eulerAngles.y;
@@ -29,16 +32,32 @@ public class CameraOrbit : MonoBehaviour
 
         Vector2 lookValue = lookAction.ReadValue<Vector2>();
 
-        if (horizontalInput != 0)
+        if (IsShimmyLocked)
         {
-            rotationY += horizontalInput * rotationSpeed;
-        } else
+            // Need to set to forward of shimmy trigger
+            rotationY = ShimmyLockRotation;
+        }
+        else if (lookValue.x != 0)
         {
             rotationY += lookValue.x * rotationSpeed * 3;
+        }
+        else
+        {
+            rotationY += horizontalInput * rotationSpeed * 3;
         }
 
         Quaternion rotation = Quaternion.Euler(0, rotationY, 0);
         transform.position = target.position - (rotation * offset);
         transform.LookAt(target);
+    }
+
+    public void SetShimmyLocked(bool shimmyLock)
+    {
+        IsShimmyLocked = shimmyLock;
+    }
+
+    public void SetShimmyLockRotation(float rotation)
+    {
+        ShimmyLockRotation = rotation;
     }
 }

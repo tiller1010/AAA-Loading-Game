@@ -13,6 +13,14 @@ public class ShimmyTrigger : MonoBehaviour
             PlayerControls playerControls = gameObject.GetComponent<PlayerControls>();
             playerControls.SetMoveSpeed(1f);
             playerControls.SetRotationSpeed(0f);
+
+            GameObject camera = GameObject.Find("Main Camera");
+            if (camera != null)
+            {
+                CameraOrbit cameraOrbit = camera.GetComponent<CameraOrbit>();
+                cameraOrbit.SetShimmyLocked(true);
+                cameraOrbit.SetShimmyLockRotation(transform.rotation.eulerAngles.y);
+            }
         }
     }
 
@@ -27,6 +35,20 @@ public class ShimmyTrigger : MonoBehaviour
             PlayerControls playerControls = gameObject.GetComponent<PlayerControls>();
             playerControls.SetMoveSpeed(3f);
             playerControls.SetRotationSpeed(5f);
+
+            GameObject camera = GameObject.Find("Main Camera");
+            if (camera != null)
+            {
+                CameraOrbit cameraOrbit = camera.GetComponent<CameraOrbit>();
+                cameraOrbit.SetShimmyLocked(false);
+            }
         }
+    }
+
+    void Update()
+    {
+        //transform.position = transform.forward * 1.1f * Time.deltaTime;
+        //transform.Translate(0, 0, 1.1f * Time.deltaTime);
+
     }
 }

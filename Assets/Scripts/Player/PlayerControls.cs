@@ -29,7 +29,14 @@ public class PlayerControls : MonoBehaviour
         Vector3 movement = Vector3.zero;
 
         Vector2 moveValue = moveAction.ReadValue<Vector2>();
-        float horizontalInput = moveValue.x;
+
+        float horizontalInput = 0f;
+
+        if (!animator.GetBool("Shimmying"))
+        {
+            horizontalInput = moveValue.x;
+        }
+
         float verticalInput = moveValue.y;
 
         if (horizontalInput != 0 || verticalInput != 0)
