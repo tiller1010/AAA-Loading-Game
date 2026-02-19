@@ -14,6 +14,11 @@ public class ShimmyTrigger : MonoBehaviour
             playerControls.SetMoveSpeed(1f);
             playerControls.SetRotationSpeed(0f);
 
+            Vector3 shimmyStartPosition = transform.TransformPoint(Vector3.back / 2f);
+            shimmyStartPosition.y = .71f; // Set character y position
+
+            playerControls.SetShimmyStartPosition(shimmyStartPosition);
+
             GameObject camera = GameObject.Find("Main Camera");
             if (camera != null)
             {

@@ -15,6 +15,8 @@ public class PlayerControls : MonoBehaviour
 
     private Animator animator;
 
+    private Vector3? shimmyStartPosition;
+
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
@@ -64,10 +66,18 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-        movement *= moveSpeed;
-        movement *= Time.deltaTime;
+        if (shimmyStartPosition != null)
+        {
+            transform.position = (Vector3)shimmyStartPosition;
+            SetShimmyStartPosition(null);
+        } else
+        {
+            movement *= moveSpeed;
+            movement *= Time.deltaTime;
 
-        characterController.Move(movement);
+            characterController.Move(movement);
+        }
+
     }
 
     public void SetMoveSpeed(float speed)
@@ -78,5 +88,10 @@ public class PlayerControls : MonoBehaviour
     public void SetRotationSpeed(float speed)
     {
         rotationSpeed = speed;
+    }
+
+    public void SetShimmyStartPosition(Vector3? position)
+    {
+        shimmyStartPosition = position;
     }
 }
