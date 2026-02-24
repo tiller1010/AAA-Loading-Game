@@ -13,6 +13,7 @@ public class ShimmyTrigger : MonoBehaviour
             PlayerControls playerControls = gameObject.GetComponent<PlayerControls>();
             playerControls.SetMoveSpeed(1f);
             playerControls.SetRotationSpeed(0f);
+            playerControls.SetRotation(transform.rotation);
 
             Vector3 shimmyStartPosition = transform.TransformPoint(Vector3.back / 2f);
             shimmyStartPosition.y = .71f; // Set character y position
@@ -48,12 +49,5 @@ public class ShimmyTrigger : MonoBehaviour
                 cameraOrbit.SetShimmyLocked(false);
             }
         }
-    }
-
-    void Update()
-    {
-        //transform.position = transform.forward * 1.1f * Time.deltaTime;
-        //transform.Translate(0, 0, 1.1f * Time.deltaTime);
-
     }
 }

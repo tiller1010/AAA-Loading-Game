@@ -90,6 +90,11 @@ public class PlayerControls : MonoBehaviour
         rotationSpeed = speed;
     }
 
+    public void SetRotation(Quaternion rotation)
+    {
+        transform.rotation = rotation;
+    }
+
     public void SetShimmyStartPosition(Vector3? position)
     {
         shimmyStartPosition = position;

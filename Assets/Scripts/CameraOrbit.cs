@@ -47,8 +47,17 @@ public class CameraOrbit : MonoBehaviour
         }
 
         Quaternion rotation = Quaternion.Euler(0, rotationY, 0);
-        transform.position = target.position - (rotation * offset);
-        transform.LookAt(target);
+        Vector3 newPosition = target.position - (rotation * offset);
+
+        if (IsShimmyLocked)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, newPosition, 5 * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5 * Time.deltaTime);
+        } else
+        {
+            transform.position = newPosition;
+            transform.LookAt(target);
+        }
     }
 
     public void SetShimmyLocked(bool shimmyLock)
