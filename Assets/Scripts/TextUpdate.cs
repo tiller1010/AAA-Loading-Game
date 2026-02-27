@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class TextUpdate : MonoBehaviour
 {
@@ -16,10 +17,25 @@ public class TextUpdate : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (showText && renderedText.Length != text.Length)
+        if (showText)
         {
+          if (renderedText.Length != text.Length)
+          {
             renderedText = text.Substring(0, renderedText.Length + 1);
             hudText.SetText(renderedText);
+          }
+          else
+          {
+              StartCoroutine("RemoveText");
+          }
         }
+    }
+
+    IEnumerator RemoveText()
+    {
+        yield return new WaitForSeconds(5);
+        showText = false;
+        renderedText = "";
+        hudText.SetText("");
     }
 }
