@@ -36,6 +36,9 @@ public class CameraOrbit : MonoBehaviour
         {
             // Need to set to forward of shimmy trigger
             rotationY = ShimmyLockRotation;
+
+            // Fixes camera centering with cinemachine
+            offset.x *= .5f;
         }
         else if (lookValue.x != 0)
         {
