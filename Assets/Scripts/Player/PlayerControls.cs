@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerControls : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlayerControls : MonoBehaviour
     public float moveSpeed;
 
     InputAction moveAction;
+    InputAction attackAction;
 
     private CharacterController characterController;
 
@@ -20,6 +22,7 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
+        attackAction = InputSystem.actions.FindAction("Attack");
 
         characterController = GetComponent<CharacterController>();
 
@@ -57,7 +60,8 @@ public class PlayerControls : MonoBehaviour
 
             animator.SetBool("Running", true);
             animator.speed = 1f;
-        } else
+        }
+        else
         {
             animator.SetBool("Running", false);
             if (animator.GetBool("Shimmying"))
@@ -70,7 +74,8 @@ public class PlayerControls : MonoBehaviour
         {
             transform.position = (Vector3)shimmyStartPosition;
             SetShimmyStartPosition(null);
-        } else
+        }
+        else
         {
             movement *= moveSpeed;
             movement *= Time.deltaTime;
@@ -78,6 +83,12 @@ public class PlayerControls : MonoBehaviour
             characterController.Move(movement);
         }
 
+        if (attackAction.triggered)
+        {
+            Debug.Log("attacking");
+            animator.SetBool("Attacking", true);
+            StartCoroutine("AttackCooldown");
+        }
     }
 
     public void SetMoveSpeed(float speed)
@@ -98,5 +109,11 @@ public class PlayerControls : MonoBehaviour
     public void SetShimmyStartPosition(Vector3? position)
     {
         shimmyStartPosition = position;
+    }
+
+    IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(1);
+        animator.SetBool("Attacking", false);
     }
 }

@@ -56,7 +56,8 @@ public class CameraOrbit : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, newPosition, 5 * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5 * Time.deltaTime);
-        } else
+        }
+        else
         {
             transform.position = newPosition;
             transform.LookAt(target);
