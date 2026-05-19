@@ -41,8 +41,12 @@ public class FieldOfView : MonoBehaviour
 
                 if (!Physics.Raycast(transform.position, dirToTarget, disToTarget, obstacleMask))
                 {
-                    Debug.Log("enemy sees player");
                     visibleTargets.Add(target);
+                    Enemy enemy = GetComponent<Enemy>();
+                    if (enemy != null)
+                    {
+                        enemy.OnFOVDetect(target);
+                    }
                 }
             }
         }
