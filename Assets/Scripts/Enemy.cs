@@ -32,9 +32,19 @@ public class Enemy : MonoBehaviour
             }
             if (moving)
             {
-                transform.Translate(0, 0, speed * Time.deltaTime);
+                Move();
             }
         }
+    }
+
+    void Move()
+    {
+        if (playerIsDetected && playerTransform)
+        {
+            float distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
+            if (distanceToPlayer < 1.5f) return;
+        }
+        transform.Translate(0, 0, speed * Time.deltaTime);
     }
 
     IEnumerator WaitAndChangeDirection()
