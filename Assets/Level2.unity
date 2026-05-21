@@ -489,13 +489,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
+  m_Height: 12.78
+  m_Radius: 0.94
   m_SlopeLimit: 45
   m_StepOffset: 0.1
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 6.43, z: 0}
 --- !u!4 &249906517 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f7a072885b762dd47b1b4e889936e711, type: 3}
@@ -1179,6 +1179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77419631d7c9ccf479b576e21775f1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  attackTriggerPrefab: {fileID: 1604052493551559335, guid: e556984997e344d4d803269f4c201b61, type: 3}
 --- !u!114 &798882346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1199,6 +1200,7 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 1
+  visibleTargets: []
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,6 +1904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77419631d7c9ccf479b576e21775f1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  attackTriggerPrefab: {fileID: 0}
 --- !u!1001 &1852796412
 PrefabInstance:
   m_ObjectHideFlags: 0

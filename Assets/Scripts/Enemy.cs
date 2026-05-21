@@ -7,7 +7,12 @@ public class Enemy : MonoBehaviour
     private bool alive;
     private bool moving;
     private bool playerIsDetected;
+    private bool isAttacking = false;
+
     private Transform playerTransform;
+
+    [SerializeField] private GameObject attackTriggerPrefab;
+    private GameObject attackTrigger;
 
     void Start()
     {
@@ -42,9 +47,31 @@ public class Enemy : MonoBehaviour
         if (playerIsDetected && playerTransform)
         {
             float distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
-            if (distanceToPlayer < 1.5f) return;
+            if (distanceToPlayer < 1.5f)
+            {
+                if (!isAttacking) StartCoroutine("AttackPlayer");
+                return;
+            }
         }
         transform.Translate(0, 0, speed * Time.deltaTime);
+    }
+
+    IEnumerator AttackPlayer()
+    {
+        isAttacking = true;
+
+        yield return new WaitForSeconds(1);
+
+        // Spawn attack trigger object
+        // GameObject attackTrigger = new GameObject("AttackTrigger");
+        attackTrigger = Instantiate(attackTriggerPrefab);
+        attackTrigger.transform.position = transform.position + (transform.forward * .8f) * 1.5f;
+        attackTrigger.transform.rotation = transform.rotation;
+
+        yield return new WaitForSeconds(1);
+
+        Destroy(attackTrigger);
+        isAttacking = false;
     }
 
     IEnumerator WaitAndChangeDirection()
@@ -60,7 +87,7 @@ public class Enemy : MonoBehaviour
 
     public void OnFOVDetect(Transform player)
     {
-        Debug.Log("enemy sees player");
+        //Debug.Log("enemy sees player");
         playerIsDetected = true;
         moving = true;
         playerTransform = player;
