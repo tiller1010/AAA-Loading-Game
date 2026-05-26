@@ -19,6 +19,11 @@ public class PlayerControls : MonoBehaviour
 
     private Vector3? shimmyStartPosition;
 
+    private bool isAttacking = false;
+
+    [SerializeField] private GameObject attackTriggerPrefab;
+    private GameObject attackTrigger;
+
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
@@ -83,12 +88,30 @@ public class PlayerControls : MonoBehaviour
             characterController.Move(movement);
         }
 
-        if (attackAction.triggered)
+        if (attackAction.triggered && !isAttacking)
         {
-            Debug.Log("attacking");
             animator.SetBool("Attacking", true);
-            StartCoroutine("AttackCooldown");
+            StartCoroutine("Attack");
         }
+    }
+
+    IEnumerator Attack()
+    {
+        isAttacking = true;
+
+        yield return new WaitForSeconds(.25f);
+
+        attackTrigger = Instantiate(attackTriggerPrefab);
+        Vector3 attackTriggerPosition = transform.position + transform.forward;
+        attackTriggerPosition.y = transform.position.y + 1;
+        attackTrigger.transform.position = attackTriggerPosition;
+        attackTrigger.transform.rotation = transform.rotation;
+
+        yield return new WaitForSeconds(1);
+
+        animator.SetBool("Attacking", false);
+        Destroy(attackTrigger);
+        isAttacking = false;
     }
 
     public void SetMoveSpeed(float speed)
@@ -109,11 +132,5 @@ public class PlayerControls : MonoBehaviour
     public void SetShimmyStartPosition(Vector3? position)
     {
         shimmyStartPosition = position;
-    }
-
-    IEnumerator AttackCooldown()
-    {
-        yield return new WaitForSeconds(1);
-        animator.SetBool("Attacking", false);
     }
 }

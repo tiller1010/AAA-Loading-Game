@@ -62,10 +62,8 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        // Spawn attack trigger object
-        // GameObject attackTrigger = new GameObject("AttackTrigger");
         attackTrigger = Instantiate(attackTriggerPrefab);
-        attackTrigger.transform.position = transform.position + (transform.forward * .8f) * 1.5f;
+        attackTrigger.transform.position = transform.position + transform.forward;
         attackTrigger.transform.rotation = transform.rotation;
 
         yield return new WaitForSeconds(1);

@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class EnemyAttackTrigger : MonoBehaviour
+public class PlayerAttackTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
         GameObject gameObject = other.gameObject;
-        if (gameObject.tag == "Player")
+        if (gameObject.tag == "Enemy")
         {
-            Debug.Log("ouch!");
+            Debug.Log("gotcha!");
 
             //Animator animator = gameObject.GetComponent<Animator>();
             //if (!animator.GetBool("TakingDamage"))
