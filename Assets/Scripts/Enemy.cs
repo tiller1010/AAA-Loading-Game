@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject attackTriggerPrefab;
     private GameObject attackTrigger;
 
+    private int health = 100;
+
     void Start()
     {
         alive = true;
@@ -89,5 +91,20 @@ public class Enemy : MonoBehaviour
         playerIsDetected = true;
         moving = true;
         playerTransform = player;
+    }
+
+    public int GetHealth()
+    {
+        return health;
+    }
+
+    public void SetHealth(int newHealth)
+    {
+        health = newHealth;
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

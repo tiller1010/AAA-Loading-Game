@@ -4,10 +4,10 @@ public class EnemyAttackTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        GameObject gameObject = other.gameObject;
-        if (gameObject.tag == "Player")
+        GameObject otherGameObject = other.gameObject;
+        if (otherGameObject.tag == "Player")
         {
-            PlayerProperties playerProperties = gameObject.GetComponent<PlayerProperties>();
+            PlayerProperties playerProperties = otherGameObject.GetComponent<PlayerProperties>();
 
             if (playerProperties != null)
             {
