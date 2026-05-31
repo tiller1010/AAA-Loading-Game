@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private GameObject attackTriggerPrefab;
     private GameObject attackTrigger;
+    public float attackTriggerPositionZAdjustment = 0;
+    public float attackTriggerPositionYAdjustment = 0;
 
     private int health = 100;
 
@@ -65,7 +67,10 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         attackTrigger = Instantiate(attackTriggerPrefab);
-        attackTrigger.transform.position = transform.position + transform.forward;
+        Vector3 attackTriggerPosition = transform.position + transform.forward;
+        attackTriggerPosition.z += attackTriggerPositionZAdjustment;
+        attackTriggerPosition.y += attackTriggerPositionYAdjustment;
+        attackTrigger.transform.position = attackTriggerPosition;
         attackTrigger.transform.rotation = transform.rotation;
 
         yield return new WaitForSeconds(1);
