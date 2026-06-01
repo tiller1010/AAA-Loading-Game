@@ -18,9 +18,12 @@ public class Enemy : MonoBehaviour
 
     private int health = 100;
 
+    private Animator animator;
+
     void Start()
     {
         alive = true;
+        animator = GetComponent<Animator>();
         StartCoroutine("WaitAndChangeDirection");
     }
 
@@ -39,9 +42,14 @@ public class Enemy : MonoBehaviour
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5);
                 }
             }
+
             if (moving)
             {
                 Move();
+            }
+            else
+            {
+                animator.SetBool("Attacking", false);
             }
         }
     }
@@ -51,12 +59,16 @@ public class Enemy : MonoBehaviour
         if (playerIsDetected && playerTransform)
         {
             float distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
-            if (distanceToPlayer < 1.5f)
+            if (distanceToPlayer < 1f)
             {
                 if (!isAttacking) StartCoroutine("AttackPlayer");
+                animator.SetBool("Running", false);
                 return;
             }
         }
+
+        animator.SetBool("Attacking", false);
+        animator.SetBool("Running", true);
         transform.Translate(0, 0, speed * Time.deltaTime);
     }
 
@@ -65,6 +77,8 @@ public class Enemy : MonoBehaviour
         isAttacking = true;
 
         yield return new WaitForSeconds(1);
+
+        animator.SetBool("Attacking", true);
 
         attackTrigger = Instantiate(attackTriggerPrefab);
         Vector3 attackTriggerPosition = transform.position + transform.forward;
@@ -82,17 +96,21 @@ public class Enemy : MonoBehaviour
     IEnumerator WaitAndChangeDirection()
     {
         if (playerIsDetected) yield break;
+        animator.SetBool("Running", false);
         moving = false;
+
         yield return new WaitForSeconds(5);
+
         transform.Rotate(0, Random.Range(-110, 110), 0);
         moving = true;
+
         yield return new WaitForSeconds(5);
+
         StartCoroutine("WaitAndChangeDirection");
     }
 
     public void OnFOVDetect(Transform player)
     {
-        //Debug.Log("enemy sees player");
         playerIsDetected = true;
         moving = true;
         playerTransform = player;

@@ -107,9 +107,10 @@ public class PlayerControls : MonoBehaviour
         attackTrigger.transform.position = attackTriggerPosition;
         attackTrigger.transform.rotation = transform.rotation;
 
+        animator.SetBool("Attacking", false);
+
         yield return new WaitForSeconds(1);
 
-        animator.SetBool("Attacking", false);
         Destroy(attackTrigger);
         isAttacking = false;
     }
