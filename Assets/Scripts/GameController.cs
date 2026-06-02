@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private Text healthLabel;
+    [SerializeField] private Slider healthSlider;
 
     void Awake()
     {
@@ -37,5 +38,6 @@ public class GameController : MonoBehaviour
     {
         string message = "Health: " + newHealth;
         healthLabel.text = message;
+        healthSlider.value = newHealth;
     }
 }
