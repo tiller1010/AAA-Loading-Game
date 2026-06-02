@@ -99,7 +99,7 @@ public class Enemy : MonoBehaviour
         animator.SetBool("Running", false);
         moving = false;
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(7);
 
         transform.Rotate(0, Random.Range(-110, 110), 0);
         moving = true;
