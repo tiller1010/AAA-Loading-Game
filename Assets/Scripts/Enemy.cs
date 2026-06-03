@@ -127,7 +127,13 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        Destroy(attackTrigger);
+        Destroy(gameObject);
     }
 }
