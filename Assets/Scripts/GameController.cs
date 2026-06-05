@@ -10,6 +10,16 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
+       if (healthLabel == null)
+       {
+         healthLabel = GameObject.Find("HealthLabel").GetComponent<Text>();
+       }
+
+       if (healthSlider == null)
+       {
+         healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
+       }
+
         Messenger<int>.AddListener("PLAYER_HEALTH_UPDATED", OnHealthUpdate);
     }
 
