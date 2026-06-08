@@ -87,7 +87,7 @@ public class Enemy : MonoBehaviour
         attackTrigger.transform.position = attackTriggerPosition;
         attackTrigger.transform.rotation = transform.rotation;
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.25f);
 
         Destroy(attackTrigger);
         isAttacking = false;

@@ -20,6 +20,8 @@ public class PlayerControls : MonoBehaviour
     private Vector3? shimmyStartPosition;
 
     private bool isAttacking = false;
+    private int attackIndex = 0;
+    private int attackAnimationsCount = 3;
 
     [SerializeField] private GameObject attackTriggerPrefab;
     private GameObject attackTrigger;
@@ -90,8 +92,12 @@ public class PlayerControls : MonoBehaviour
 
         if (attackAction.triggered && !isAttacking)
         {
-            animator.SetBool("Attacking", true);
+            //animator.SetBool("Attacking", true);
+            //attackIndex = (attackIndex + 1) % (attackAnimationsCount + 1);
+            //Debug.Log(attackIndex);
+            //animator.SetInteger("AttackIndex", attackIndex);
             StartCoroutine("Attack");
+            //StartCoroutine("ResetAttackIndex");
         }
     }
 
@@ -99,6 +105,15 @@ public class PlayerControls : MonoBehaviour
     {
         isAttacking = true;
 
+        animator.SetBool("Attacking", true);
+        attackIndex = attackIndex + 1;
+        if (attackIndex > attackAnimationsCount)
+        {
+            attackIndex = 1;
+        }
+        animator.SetInteger("AttackIndex", attackIndex);
+
+        // Delay attack trigger until animation finishes
         yield return new WaitForSeconds(.25f);
 
         attackTrigger = Instantiate(attackTriggerPrefab);
@@ -107,12 +122,25 @@ public class PlayerControls : MonoBehaviour
         attackTrigger.transform.position = attackTriggerPosition;
         attackTrigger.transform.rotation = transform.rotation;
 
-        animator.SetBool("Attacking", false);
+        //animator.SetBool("Attacking", false);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.25f);
 
         Destroy(attackTrigger);
         isAttacking = false;
+
+        StartCoroutine("ResetAttackIndex");
+    }
+
+    IEnumerator ResetAttackIndex()
+    {
+        yield return new WaitForSeconds(1);
+        if (!isAttacking)
+        {
+            animator.SetBool("Attacking", false);
+            attackIndex = 0;
+            animator.SetInteger("AttackIndex", 0);
+        }
     }
 
     public void SetMoveSpeed(float speed)
