@@ -92,12 +92,7 @@ public class PlayerControls : MonoBehaviour
 
         if (attackAction.triggered && !isAttacking)
         {
-            //animator.SetBool("Attacking", true);
-            //attackIndex = (attackIndex + 1) % (attackAnimationsCount + 1);
-            //Debug.Log(attackIndex);
-            //animator.SetInteger("AttackIndex", attackIndex);
             StartCoroutine("Attack");
-            //StartCoroutine("ResetAttackIndex");
         }
     }
 
@@ -121,8 +116,6 @@ public class PlayerControls : MonoBehaviour
         attackTriggerPosition.y = transform.position.y + 1;
         attackTrigger.transform.position = attackTriggerPosition;
         attackTrigger.transform.rotation = transform.rotation;
-
-        //animator.SetBool("Attacking", false);
 
         yield return new WaitForSeconds(.25f);
 
