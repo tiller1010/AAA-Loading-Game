@@ -148,16 +148,33 @@ public class Enemy : MonoBehaviour
     public void SetHealth(int newHealth)
     {
         health = newHealth;
+    }
 
+    public void TakeDamage(int damage)
+    {
+        health = health - damage;
         if (health <= 0)
         {
             Die();
         }
+        else
+        {
+            StartCoroutine("DamageAnimation");
+        }
+    }
+
+    IEnumerator DamageAnimation()
+    {
+        animator.SetBool("TakingDamage", true);
+        yield return new WaitForSeconds(.25f);
+        animator.SetBool("TakingDamage", false);
     }
 
     public void Die()
     {
         Destroy(attackTrigger);
-        Destroy(gameObject);
+        health = 0;
+        alive = false;
+        animator.SetBool("Alive", false);
     }
 }

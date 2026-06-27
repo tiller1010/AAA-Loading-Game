@@ -11,7 +11,7 @@ public class PlayerAttackTrigger : MonoBehaviour
 
             if (enemy != null)
             {
-                enemy.SetHealth(enemy.GetHealth() - 50);
+                enemy.TakeDamage(50);
             }
         }
     }
