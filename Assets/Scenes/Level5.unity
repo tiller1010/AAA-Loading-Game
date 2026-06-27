@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6810885333086738965, guid: 2b0c28ca3598d5d4eb2e4bf4d60ed3fb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: 0.51
       objectReference: {fileID: 0}
     - target: {fileID: 6810885333086738965, guid: 2b0c28ca3598d5d4eb2e4bf4d60ed3fb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -910,6 +910,17 @@ MonoBehaviour:
   gravity: -9
   terminalVelocity: -10
   minFallSpeed: -1.5
+--- !u!114 &752944141 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 27968400478994109, guid: 2b0c28ca3598d5d4eb2e4bf4d60ed3fb, type: 3}
+  m_PrefabInstance: {fileID: 42137182}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752944135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3510d033befc05d42bab5628207ffd47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerProperties
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,7 +1166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 452223305243938231, guid: 5f5e90c9a3ec4bd4d8535fffb414283f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.49999976
+      value: 0.51
       objectReference: {fileID: 0}
     - target: {fileID: 452223305243938231, guid: 5f5e90c9a3ec4bd4d8535fffb414283f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1193,6 +1204,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: goblin_prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 4024684494869067108, guid: 5f5e90c9a3ec4bd4d8535fffb414283f, type: 3}
+      propertyPath: playerProperties
+      value: 
+      objectReference: {fileID: 752944141}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1342,7 +1357,7 @@ Transform:
   m_GameObject: {fileID: 1247405459}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -170, y: 0, z: -167}
+  m_LocalPosition: {x: -170, y: 0.5, z: -167}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -4,8 +4,9 @@ using System.Collections;
 public class Enemy : MonoBehaviour
 {
     private float speed = 3;
-    private bool alive;
-    private bool moving;
+    private bool alive = true;
+    private bool moving = false;
+    private bool wandering = true;
     private bool playerIsDetected;
     private bool isAttacking = false;
 
@@ -23,7 +24,6 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        alive = true;
         animator = GetComponent<Animator>();
         StartCoroutine("WaitAndChangeDirection");
     }
@@ -34,6 +34,8 @@ public class Enemy : MonoBehaviour
         {
             if (playerIsDetected && playerTransform)
             {
+                StopCoroutine("WaitAndChangeDirection");
+
                 // Rotate to face the player
                 Vector3 direction = playerTransform.position - transform.position;
                 direction.y = 0; // Keep the rotation on the horizontal plane
@@ -44,30 +46,47 @@ public class Enemy : MonoBehaviour
                 }
             }
 
+            if (playerProperties.GetIsAlive())
+            {
+                PursuePlayer();
+            }
+            else
+            {
+                playerIsDetected = false;
+                animator.SetBool("Attacking", false);
+                if (!wandering)
+                {
+                    wandering = true;
+                    StartCoroutine("WaitAndChangeDirection");
+                }
+            }
+
             if (moving)
             {
                 Move();
             }
-            else
-            {
-                animator.SetBool("Attacking", false);
-            }
+        }
+    }
+
+    void PursuePlayer()
+    {
+        if (!playerTransform) return;
+
+        float distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
+        if (distanceToPlayer < 1f)
+        {
+            moving = false;
+            if (!isAttacking) StartCoroutine("AttackPlayer");
+            animator.SetBool("Running", false);
+        }
+        else
+        {
+            moving = true;
         }
     }
 
     void Move()
     {
-        if (playerIsDetected && playerTransform)
-        {
-            float distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
-            if (distanceToPlayer < 1f && playerProperties.GetIsAlive())
-            {
-                if (!isAttacking) StartCoroutine("AttackPlayer");
-                animator.SetBool("Running", false);
-                return;
-            }
-        }
-
         animator.SetBool("Attacking", false);
         animator.SetBool("Running", true);
         transform.Translate(0, 0, speed * Time.deltaTime);
@@ -97,6 +116,7 @@ public class Enemy : MonoBehaviour
     IEnumerator WaitAndChangeDirection()
     {
         if (playerIsDetected) yield break;
+
         animator.SetBool("Running", false);
         moving = false;
 
@@ -112,7 +132,10 @@ public class Enemy : MonoBehaviour
 
     public void OnFOVDetect(Transform player)
     {
+        if (!playerProperties.GetIsAlive()) return;
+
         playerIsDetected = true;
+        wandering = false;
         moving = true;
         playerTransform = player;
     }

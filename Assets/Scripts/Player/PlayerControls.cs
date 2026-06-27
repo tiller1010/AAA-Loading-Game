@@ -37,10 +37,7 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        if (!playerProperties.GetIsAlive())
-        {
-            return;
-        }
+        if (!playerProperties.GetIsAlive()) return;
 
         Vector3 movement = Vector3.zero;
 
