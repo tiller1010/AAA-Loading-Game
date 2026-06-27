@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     private bool isAttacking = false;
 
     private Transform playerTransform;
+    public PlayerProperties playerProperties;
 
     [SerializeField] private GameObject attackTriggerPrefab;
     private GameObject attackTrigger;
@@ -59,7 +60,7 @@ public class Enemy : MonoBehaviour
         if (playerIsDetected && playerTransform)
         {
             float distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
-            if (distanceToPlayer < 1f)
+            if (distanceToPlayer < 1f && playerProperties.GetIsAlive())
             {
                 if (!isAttacking) StartCoroutine("AttackPlayer");
                 animator.SetBool("Running", false);

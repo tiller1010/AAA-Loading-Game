@@ -14,11 +14,10 @@ public class PlayerControls : MonoBehaviour
     InputAction attackAction;
 
     private CharacterController characterController;
-
     private Animator animator;
+    private PlayerProperties playerProperties;
 
     private Vector3? shimmyStartPosition;
-
     private bool isAttacking = false;
     private int attackIndex = 0;
     private int attackAnimationsCount = 3;
@@ -32,12 +31,17 @@ public class PlayerControls : MonoBehaviour
         attackAction = InputSystem.actions.FindAction("Attack");
 
         characterController = GetComponent<CharacterController>();
-
         animator = GetComponent<Animator>();
+        playerProperties = GetComponent<PlayerProperties>();
     }
 
     void Update()
     {
+        if (!playerProperties.GetIsAlive())
+        {
+            return;
+        }
+
         Vector3 movement = Vector3.zero;
 
         Vector2 moveValue = moveAction.ReadValue<Vector2>();

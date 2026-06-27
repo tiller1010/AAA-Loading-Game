@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7f81b6cecf4298c49a5be909bfa72c55, type: 3}
       propertyPath: m_Name
-      value: goblin
+      value: goblin_prefab
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7f81b6cecf4298c49a5be909bfa72c55, type: 3}
       propertyPath: m_TagString
@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77419631d7c9ccf479b576e21775f1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  playerProperties: {fileID: 27968400478994109, guid: 2b0c28ca3598d5d4eb2e4bf4d60ed3fb, type: 3}
   attackTriggerPrefab: {fileID: 1604052493551559335, guid: e556984997e344d4d803269f4c201b61, type: 3}
   attackTriggerPositionZAdjustment: 0
   attackTriggerPositionYAdjustment: 0.5

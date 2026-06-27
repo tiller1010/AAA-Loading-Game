@@ -11,7 +11,7 @@ public class EnemyAttackTrigger : MonoBehaviour
 
             if (playerProperties != null)
             {
-                playerProperties.SetHealth(playerProperties.GetHealth() - 20);
+                playerProperties.TakeDamage(34);
                 Messenger<int>.Broadcast("PLAYER_HEALTH_UPDATED", playerProperties.GetHealth());
             }
         }
