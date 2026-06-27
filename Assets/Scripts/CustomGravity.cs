@@ -29,8 +29,7 @@ public class CustomGravity : MonoBehaviour
         RaycastHit groundRaycastHit;
         if (verticalSpeed < 0 && Physics.Raycast(transform.position, Vector3.down, out groundRaycastHit))
         {
-            float hitGroundCheck = (characterController.height + characterController.radius) / 1.9f;
-            hitGround = groundRaycastHit.distance * 15 <= hitGroundCheck;
+            hitGround = groundRaycastHit.distance <= .12f;
         }
 
         if (hitGround)
