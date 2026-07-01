@@ -91,7 +91,7 @@ public class PlayerControls : MonoBehaviour
             characterController.Move(movement);
         }
 
-        if (attackAction.triggered && !isAttacking)
+        if (attackAction.triggered && !isAttacking && !PauseMenu.GameIsPaused)
         {
             StartCoroutine("Attack");
         }
