@@ -15,15 +15,7 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-       if (healthLabel == null)
-       {
-         healthLabel = GameObject.Find("HealthLabel").GetComponent<Text>();
-       }
-
-       if (healthSlider == null)
-       {
-         healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
-       }
+        InitializeHUD();
 
         Messenger<int>.AddListener("PLAYER_HEALTH_UPDATED", OnHealthUpdate);
     }
@@ -34,24 +26,28 @@ public class GameController : MonoBehaviour
         Application.targetFrameRate = 59;
 
         gameOverText.SetActive(false);
-        hudVerticalCenter = Screen.height / 2 + 43; // Plus text height (43)
+        hudVerticalCenter = Screen.height / 2 + 200;
     }
 
     void FixedUpdate()
     {
-        if (isGameOver && gameOverText.transform.position.y != hudVerticalCenter)
+        if (isGameOver)
         {
-            float gameOverTextPositionY = gameOverText.transform.position.y - 5;
-            if (gameOverTextPositionY < hudVerticalCenter)
+            InitializeHUD();
+            if (gameOverText.transform.position.y != hudVerticalCenter)
             {
-                gameOverTextPositionY = hudVerticalCenter;
+                float gameOverTextPositionY = gameOverText.transform.position.y - 5;
+                if (gameOverTextPositionY < hudVerticalCenter)
+                {
+                    gameOverTextPositionY = hudVerticalCenter;
+                }
+                Vector3 gameOverTextPosition = new Vector3(
+                    gameOverText.transform.position.x,
+                    gameOverTextPositionY,
+                    gameOverText.transform.position.z
+                );
+                gameOverText.transform.position = gameOverTextPosition;
             }
-            Vector3 gameOverTextPosition = new Vector3(
-                gameOverText.transform.position.x,
-                gameOverTextPositionY,
-                gameOverText.transform.position.z
-            );
-            gameOverText.transform.position = gameOverTextPosition;
         }
     }
 
@@ -72,6 +68,7 @@ public class GameController : MonoBehaviour
 
     private void OnHealthUpdate(int newHealth)
     {
+        InitializeHUD();
         string message = "Health: " + newHealth;
         healthLabel.text = message;
         healthSlider.value = newHealth;
@@ -80,6 +77,24 @@ public class GameController : MonoBehaviour
         {
             gameOverText.SetActive(true);
             isGameOver = true;
+        }
+    }
+
+    void InitializeHUD()
+    {
+        if (healthLabel == null)
+        {
+            healthLabel = GameObject.Find("HealthText").GetComponent<Text>();
+        }
+
+        if (healthSlider == null)
+        {
+            healthSlider = GameObject.Find("HealthBar").GetComponent<Slider>();
+        }
+
+        if (gameOverText == null)
+        {
+            gameOverText = GameObject.Find("GameOverText");
         }
     }
 }

@@ -114,7 +114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f7a072885b762dd47b1b4e889936e711, type: 3}
       propertyPath: m_Name
-      value: game_guy_2
+      value: game_guy_2_prefab
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f7a072885b762dd47b1b4e889936e711, type: 3}
       propertyPath: m_Layer
@@ -200,6 +200,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f7a072885b762dd47b1b4e889936e711, type: 3}
       insertIndex: -1
       addedObject: {fileID: 27968400478994109}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f7a072885b762dd47b1b4e889936e711, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3620285527062924749}
   m_SourcePrefab: {fileID: 100100000, guid: f7a072885b762dd47b1b4e889936e711, type: 3}
 --- !u!1 &6183143991865622703 stripped
 GameObject:
@@ -281,3 +284,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3510d033befc05d42bab5628207ffd47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerProperties
+--- !u!114 &3620285527062924749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6183143991865622703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40bbee79f47f3df4b92ec26eacaf140a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CustomGravity
+  jumpSpeed: 15
+  gravity: -9
+  terminalVelocity: -10
+  minFallSpeed: -1.5
