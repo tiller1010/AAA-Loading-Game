@@ -15,39 +15,34 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        InitializeHUD();
-
         Messenger<int>.AddListener("PLAYER_HEALTH_UPDATED", OnHealthUpdate);
     }
 
     void Start()
     {
+        InitializeHUD();
+
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 59;
 
-        gameOverText.SetActive(false);
         hudVerticalCenter = Screen.height / 2 + 200;
     }
 
     void FixedUpdate()
     {
-        if (isGameOver)
+        if (isGameOver && gameOverText.transform.position.y != hudVerticalCenter)
         {
-            InitializeHUD();
-            if (gameOverText.transform.position.y != hudVerticalCenter)
+            float gameOverTextPositionY = gameOverText.transform.position.y - 5;
+            if (gameOverTextPositionY < hudVerticalCenter)
             {
-                float gameOverTextPositionY = gameOverText.transform.position.y - 5;
-                if (gameOverTextPositionY < hudVerticalCenter)
-                {
-                    gameOverTextPositionY = hudVerticalCenter;
-                }
-                Vector3 gameOverTextPosition = new Vector3(
-                    gameOverText.transform.position.x,
-                    gameOverTextPositionY,
-                    gameOverText.transform.position.z
-                );
-                gameOverText.transform.position = gameOverTextPosition;
+                gameOverTextPositionY = hudVerticalCenter;
             }
+            Vector3 gameOverTextPosition = new Vector3(
+                gameOverText.transform.position.x,
+                gameOverTextPositionY,
+                gameOverText.transform.position.z
+            );
+            gameOverText.transform.position = gameOverTextPosition;
         }
     }
 
@@ -75,7 +70,6 @@ public class GameController : MonoBehaviour
 
         if (newHealth == 0)
         {
-            gameOverText.SetActive(true);
             isGameOver = true;
         }
     }
