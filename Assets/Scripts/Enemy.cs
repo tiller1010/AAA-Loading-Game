@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using System.Collections;
 
 public class Enemy : MonoBehaviour
@@ -17,6 +18,7 @@ public class Enemy : MonoBehaviour
     private GameObject attackTrigger;
     public float attackTriggerPositionZAdjustment = 0;
     public float attackTriggerPositionYAdjustment = 0;
+    private NavMeshAgent navMeshAgent;
 
     private int health = 100;
 
@@ -26,6 +28,7 @@ public class Enemy : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         StartCoroutine("WaitAndChangeDirection");
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
@@ -38,7 +41,7 @@ public class Enemy : MonoBehaviour
 
                 // Rotate to face the player
                 Vector3 direction = playerTransform.position - transform.position;
-                direction.y = 0; // Keep the rotation on the horizontal plane
+                //direction.y = 0; // Keep the rotation on the horizontal plane
                 if (direction != Vector3.zero)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(direction);
@@ -53,6 +56,7 @@ public class Enemy : MonoBehaviour
             else
             {
                 playerIsDetected = false;
+                navMeshAgent.isStopped = true;
                 animator.SetBool("Attacking", false);
                 if (!wandering)
                 {
@@ -73,7 +77,7 @@ public class Enemy : MonoBehaviour
         if (!playerTransform) return;
 
         float distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
-        if (distanceToPlayer < 1f)
+        if (distanceToPlayer < 1)
         {
             moving = false;
             if (!isAttacking) StartCoroutine("AttackPlayer");
@@ -89,7 +93,15 @@ public class Enemy : MonoBehaviour
     {
         animator.SetBool("Attacking", false);
         animator.SetBool("Running", true);
-        transform.Translate(0, 0, speed * Time.deltaTime);
+
+        if (playerIsDetected && navMeshAgent.isOnNavMesh)
+        {
+            navMeshAgent.SetDestination(playerTransform.position);
+        }
+        else
+        {
+            transform.Translate(0, 0, speed * Time.deltaTime);
+        }
     }
 
     IEnumerator AttackPlayer()
