@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -40,6 +41,13 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0;
         GameIsPaused = true;
+    }
+
+    public void LoadLevelSelect()
+    {
+        Time.timeScale = 1;
+        GameIsPaused = false;
+        SceneManager.LoadScene("LevelSelectMenu");
     }
 
     public void QuitGame()

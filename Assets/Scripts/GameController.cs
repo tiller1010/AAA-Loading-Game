@@ -56,11 +56,6 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("Level" + nextSceneNumber);
     }
 
-    public static void StartGame()
-    {
-        SceneManager.LoadScene("Level1");
-    }
-
     private void OnHealthUpdate(int newHealth)
     {
         InitializeHUD();

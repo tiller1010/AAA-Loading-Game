@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
             else
             {
                 playerIsDetected = false;
-                navMeshAgent.isStopped = true;
+                if (navMeshAgent.isOnNavMesh) navMeshAgent.isStopped = true;
                 animator.SetBool("Attacking", false);
                 if (!wandering)
                 {
