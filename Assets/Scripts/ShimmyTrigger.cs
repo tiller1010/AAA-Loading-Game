@@ -7,10 +7,9 @@ public class ShimmyTrigger : MonoBehaviour
         GameObject gameObject = other.gameObject;
         if (gameObject.tag == "Player")
         {
-            Animator animator = gameObject.GetComponent<Animator>();
-            if (!animator.GetBool("Shimmying"))
+            PlayerControls playerControls = gameObject.GetComponent<PlayerControls>();
+            if (!playerControls.GetIsShimmying())
             {
-                PlayerControls playerControls = gameObject.GetComponent<PlayerControls>();
                 playerControls.SetMoveSpeed(1f);
                 playerControls.SetRotationSpeed(0f);
                 playerControls.SetRotation(transform.rotation);
@@ -29,7 +28,7 @@ public class ShimmyTrigger : MonoBehaviour
                 }
             }
 
-            animator.SetBool("Shimmying", true);
+            playerControls.SetIsShimmying(true);
         }
     }
 
@@ -38,10 +37,8 @@ public class ShimmyTrigger : MonoBehaviour
         GameObject gameObject = other.gameObject;
         if (gameObject.tag == "Player")
         {
-            Animator animator = gameObject.GetComponent<Animator>();
-            animator.SetBool("Shimmying", false);
-
             PlayerControls playerControls = gameObject.GetComponent<PlayerControls>();
+            playerControls.SetIsShimmying(false);
             playerControls.SetMoveSpeed(3f);
             playerControls.SetRotationSpeed(5f);
 

@@ -21,6 +21,8 @@ public class PlayerControls : MonoBehaviour
     private bool isAttacking = false;
     private int attackIndex = 0;
     private int attackAnimationsCount = 3;
+    private bool isShimmying = false;
+    private bool canPauseAnimations = false;
 
     [SerializeField] private GameObject attackTriggerPrefab;
     private GameObject attackTrigger;
@@ -45,7 +47,7 @@ public class PlayerControls : MonoBehaviour
 
         float horizontalInput = 0f;
 
-        if (!animator.GetBool("Shimmying"))
+        if (!isShimmying)
         {
             horizontalInput = moveValue.x;
         }
@@ -72,7 +74,7 @@ public class PlayerControls : MonoBehaviour
         else
         {
             animator.SetBool("Running", false);
-            if (animator.GetBool("Shimmying"))
+            if (isShimmying && canPauseAnimations)
             {
                 animator.speed = 0f;
             }
@@ -126,6 +128,12 @@ public class PlayerControls : MonoBehaviour
         StartCoroutine("ResetAttackIndex");
     }
 
+    IEnumerator CanPauseAnimationsTimeout()
+    {
+        yield return new WaitForSeconds(1.25f);
+        if (isShimmying) canPauseAnimations = true;
+    }
+
     IEnumerator ResetAttackIndex()
     {
         yield return new WaitForSeconds(1);
@@ -150,6 +158,27 @@ public class PlayerControls : MonoBehaviour
     public void SetRotation(Quaternion rotation)
     {
         transform.rotation = rotation;
+    }
+
+    public bool GetIsShimmying()
+    {
+        return isShimmying;
+    }
+
+    public void SetIsShimmying(bool newIsShimmying)
+    {
+        // Allow transition to shimmying to occur before being able to pause the animation
+        if (newIsShimmying)
+        {
+            StartCoroutine("CanPauseAnimationsTimeout");
+        }
+        else
+        {
+            canPauseAnimations = false;
+        }
+
+        isShimmying = newIsShimmying;
+        animator.SetBool("Shimmying", isShimmying);
     }
 
     public void SetShimmyStartPosition(Vector3? position)
