@@ -12,4 +12,9 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadScene("Level" + level);
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
