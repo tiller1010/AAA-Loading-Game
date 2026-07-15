@@ -107,10 +107,9 @@ public class Enemy : MonoBehaviour
     IEnumerator AttackPlayer()
     {
         isAttacking = true;
-
-        yield return new WaitForSeconds(1);
-
         animator.SetBool("Attacking", true);
+
+        yield return new WaitForSeconds(.75f);
 
         attackTrigger = Instantiate(attackTriggerPrefab);
         Vector3 attackTriggerPosition = transform.position + transform.forward;
@@ -119,7 +118,7 @@ public class Enemy : MonoBehaviour
         attackTrigger.transform.position = attackTriggerPosition;
         attackTrigger.transform.rotation = transform.rotation;
 
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(.75f);
 
         Destroy(attackTrigger);
         isAttacking = false;

@@ -112,7 +112,7 @@ public class PlayerControls : MonoBehaviour
         animator.SetInteger("AttackIndex", attackIndex);
 
         // Delay attack trigger until animation finishes
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(.3f);
 
         attackTrigger = Instantiate(attackTriggerPrefab);
         Vector3 attackTriggerPosition = transform.position + transform.forward;
@@ -120,12 +120,14 @@ public class PlayerControls : MonoBehaviour
         attackTrigger.transform.position = attackTriggerPosition;
         attackTrigger.transform.rotation = transform.rotation;
 
-        yield return new WaitForSeconds(.25f);
-
-        Destroy(attackTrigger);
         isAttacking = false;
+        animator.SetBool("Attacking", false);
 
         StartCoroutine("ResetAttackIndex");
+
+        yield return new WaitForSeconds(.2f);
+
+        Destroy(attackTrigger);
     }
 
     IEnumerator CanPauseAnimationsTimeout()
@@ -136,10 +138,9 @@ public class PlayerControls : MonoBehaviour
 
     IEnumerator ResetAttackIndex()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.5f);
         if (!isAttacking)
         {
-            animator.SetBool("Attacking", false);
             attackIndex = 0;
             animator.SetInteger("AttackIndex", 0);
         }
