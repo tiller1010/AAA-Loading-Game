@@ -12,7 +12,10 @@ public class TextUpdate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        showText = true;
+        if (other.gameObject.tag == "Player")
+        {
+            showText = true;
+        }
     }
 
     void FixedUpdate()
