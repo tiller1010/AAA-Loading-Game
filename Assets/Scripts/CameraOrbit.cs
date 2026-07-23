@@ -9,6 +9,7 @@ public class CameraOrbit : MonoBehaviour
 
     private float rotationY;
     private Vector3 offset;
+    private Vector3 originalOffset;
 
     InputAction moveAction;
     InputAction lookAction;
@@ -18,8 +19,10 @@ public class CameraOrbit : MonoBehaviour
 
     void Start()
     {
-        rotationY = transform.eulerAngles.y;
         offset = target.position - transform.position;
+        offset.x = Mathf.Abs(offset.x);
+        offset.z = Mathf.Abs(offset.z);
+        originalOffset = new Vector3(offset.x, offset.y, offset.z);
 
         moveAction = InputSystem.actions.FindAction("Move");
         lookAction = InputSystem.actions.FindAction("Look");
@@ -50,6 +53,7 @@ public class CameraOrbit : MonoBehaviour
         }
 
         Quaternion rotation = Quaternion.Euler(0, rotationY, 0);
+        Debug.Log(rotation);
         Vector3 newPosition = target.position - (rotation * offset);
 
         if (IsShimmyLocked)
@@ -67,6 +71,11 @@ public class CameraOrbit : MonoBehaviour
     public void SetShimmyLocked(bool shimmyLock)
     {
         IsShimmyLocked = shimmyLock;
+        if (!shimmyLock)
+        {
+            offset.x = originalOffset.x;
+            offset.z = originalOffset.z;
+        }
     }
 
     public void SetShimmyLockRotation(float rotation)

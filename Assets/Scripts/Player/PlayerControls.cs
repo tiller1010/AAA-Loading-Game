@@ -93,7 +93,7 @@ public class PlayerControls : MonoBehaviour
             characterController.Move(movement);
         }
 
-        if (attackAction.triggered && !isAttacking && !PauseMenu.GameIsPaused)
+        if (!isShimmying && attackAction.triggered && !isAttacking && !PauseMenu.GameIsPaused)
         {
             StartCoroutine("Attack");
         }
