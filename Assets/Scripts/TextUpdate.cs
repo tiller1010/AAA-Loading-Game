@@ -15,6 +15,9 @@ public class TextUpdate : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             showText = true;
+
+            // Disable the collider to prevent multiple triggers
+            GetComponent<Collider>().enabled = false;
         }
     }
 
