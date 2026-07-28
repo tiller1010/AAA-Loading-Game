@@ -21,7 +21,7 @@ public class PlayerControls : MonoBehaviour
     private bool isAttacking = false;
     private int attackIndex = 0;
     private int attackAnimationsCount = 3;
-    private bool isShimmying = false;
+    public bool isShimmying = false;
     private bool canPauseAnimations = false;
 
     [SerializeField] private GameObject attackTriggerPrefab;
@@ -35,6 +35,12 @@ public class PlayerControls : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         playerProperties = GetComponent<PlayerProperties>();
+
+        if (isShimmying)
+        {
+            SetMoveSpeed(1f);
+            SetRotationSpeed(0f);
+        }
     }
 
     void Update()
@@ -80,7 +86,7 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-        if (shimmyStartPosition != null)
+        if (shimmyStartPosition != null && !isShimmying)
         {
             transform.position = (Vector3)shimmyStartPosition;
             SetShimmyStartPosition(null);

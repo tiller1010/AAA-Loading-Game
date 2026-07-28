@@ -1027,6 +1027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   target: {fileID: 1888341315}
+  IsShimmyLocked: 0
 --- !u!114 &1143163706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1138,13 +1139,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1143163704}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.107620694, y: 0.008675871, z: -0.0009391939, w: 0.99415374}
+  m_LocalRotation: {x: 0.10762631, y: 0, z: 0, w: 0.9941914}
   m_LocalPosition: {x: 11.85721, y: 2.62, z: -12.5254}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 12.357, y: 1, z: 0}
+  m_LocalEulerAnglesHint: {x: 12.357, y: 0, z: 0}
 --- !u!1001 &1186864964
 PrefabInstance:
   m_ObjectHideFlags: 0

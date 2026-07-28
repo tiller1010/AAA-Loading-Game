@@ -14,8 +14,9 @@ public class CameraOrbit : MonoBehaviour
     InputAction moveAction;
     InputAction lookAction;
 
-    private bool IsShimmyLocked = false;
+    public bool IsShimmyLocked = false;
     private float ShimmyLockRotation = 1f;
+    private float originalYRotation = 0f;
 
     void Start()
     {
@@ -26,6 +27,11 @@ public class CameraOrbit : MonoBehaviour
 
         moveAction = InputSystem.actions.FindAction("Move");
         lookAction = InputSystem.actions.FindAction("Look");
+
+        if (IsShimmyLocked)
+        {
+            SetShimmyLockRotation(transform.rotation.eulerAngles.y);
+        }
     }
 
     void LateUpdate()
@@ -75,6 +81,11 @@ public class CameraOrbit : MonoBehaviour
         {
             offset.x = originalOffset.x;
             offset.z = originalOffset.z;
+            rotationY = originalYRotation;
+        }
+        else
+        {
+            originalYRotation = rotationY;
         }
     }
 

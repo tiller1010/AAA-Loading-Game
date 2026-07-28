@@ -335,7 +335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.10131508, y: -0.23293133, z: 0.02439184, w: 0.9668937}
+  m_LocalRotation: {x: 0.1042073, y: 0.0000018147259, z: -0.000017319764, w: 0.99455565}
   m_LocalPosition: {x: 15.007626, y: 2.429791, z: -6.751576}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -399,6 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   target: {fileID: 249906517}
+  IsShimmyLocked: 0
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1207,6 +1208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraOrbit
   target: {fileID: 249906517}
+  IsShimmyLocked: 0
 --- !u!114 &944189922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1258,13 +1260,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944189920}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.10131508, y: -0.23293133, z: 0.02439184, w: 0.9668937}
+  m_LocalRotation: {x: 0.1042073, y: 0.0000018147259, z: -0.000017319764, w: 0.99455565}
   m_LocalPosition: {x: 15.007626, y: 2.429791, z: -6.751576}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 9.157, y: -135, z: 0}
+  m_LocalEulerAnglesHint: {x: 11.963, y: 0, z: -0.002}
 --- !u!1001 &1378886369
 PrefabInstance:
   m_ObjectHideFlags: 0
