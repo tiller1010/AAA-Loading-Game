@@ -190,6 +190,6 @@ public class PlayerControls : MonoBehaviour
 
     public void SetShimmyStartPosition(Vector3? position)
     {
-        shimmyStartPosition = position;
+        //shimmyStartPosition = position;
     }
 }
