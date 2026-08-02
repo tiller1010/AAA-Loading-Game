@@ -100,6 +100,19 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            if (wandering)
+            {
+                // Do not run into walls while wandering
+                RaycastHit obstacleCheck;
+                Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out obstacleCheck);
+                if (obstacleCheck.collider.gameObject.CompareTag("GameWorld") && obstacleCheck.distance < 3)
+                {
+                    StopCoroutine("WaitAndChangeDirection");
+                    StartCoroutine("WaitAndChangeDirection");
+                    return;
+                }
+            }
+
             transform.Translate(0, 0, speed * Time.deltaTime);
         }
     }
