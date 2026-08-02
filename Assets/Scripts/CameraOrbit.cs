@@ -59,7 +59,6 @@ public class CameraOrbit : MonoBehaviour
         }
 
         Quaternion rotation = Quaternion.Euler(0, rotationY, 0);
-        Debug.Log(rotation);
         Vector3 newPosition = target.position - (rotation * offset);
 
         if (IsShimmyLocked)
