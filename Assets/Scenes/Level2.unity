@@ -2783,6 +2783,26 @@ PrefabInstance:
       propertyPath: hudText
       value: 
       objectReference: {fileID: 1852796413}
+    - target: {fileID: 7809876355365956949, guid: 0d32aa65496fdcf4fa28a6524708e121, type: 3}
+      propertyPath: additionalTexts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809876355365956949, guid: 0d32aa65496fdcf4fa28a6524708e121, type: 3}
+      propertyPath: additionalTexts.Array.data[0].text
+      value: Okay just turn back I guess.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809876355365956949, guid: 0d32aa65496fdcf4fa28a6524708e121, type: 3}
+      propertyPath: additionalTexts.Array.data[1].text
+      value: What a waste of time...
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809876355365956949, guid: 0d32aa65496fdcf4fa28a6524708e121, type: 3}
+      propertyPath: additionalTexts.Array.data[0].delay
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809876355365956949, guid: 0d32aa65496fdcf4fa28a6524708e121, type: 3}
+      propertyPath: additionalTexts.Array.data[1].delay
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8890965141454106730, guid: 0d32aa65496fdcf4fa28a6524708e121, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.2121

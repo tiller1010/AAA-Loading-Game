@@ -1,10 +1,15 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TextUpdate : MonoBehaviour
 {
     public string text;
+    public List<TextData> additionalTexts = new List<TextData>();
+    private int additionalTextIndex = 0;
+    private float additionalTextDelay = 0;
+
     private string renderedText = "";
     private bool showText;
 
@@ -32,7 +37,8 @@ public class TextUpdate : MonoBehaviour
           }
           else
           {
-              StartCoroutine("RemoveText");
+            showText = false;
+            StartCoroutine("RemoveText");
           }
         }
     }
@@ -40,8 +46,21 @@ public class TextUpdate : MonoBehaviour
     IEnumerator RemoveText()
     {
         yield return new WaitForSeconds(5);
-        showText = false;
         renderedText = "";
         hudText.SetText("");
+        if (additionalTexts.Count > additionalTextIndex)
+        {
+            TextData additionalText = additionalTexts[additionalTextIndex];
+            text = additionalText.text;
+            additionalTextDelay = additionalText.delay;
+            additionalTextIndex++;
+            StartCoroutine("DelayedText");
+        }
+    }
+
+    IEnumerator DelayedText()
+    {
+        yield return new WaitForSeconds(additionalTextDelay);
+        showText = true;
     }
 }
