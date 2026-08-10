@@ -8,6 +8,7 @@ public class CameraOrbit : MonoBehaviour
     private float rotationSpeed = .2f;
 
     private float rotationY;
+    private float rotationX;
     private Vector3 offset;
     private Vector3 originalOffset;
 
@@ -24,6 +25,9 @@ public class CameraOrbit : MonoBehaviour
         offset.x = Mathf.Abs(offset.x);
         offset.z = Mathf.Abs(offset.z);
         originalOffset = new Vector3(offset.x, offset.y, offset.z);
+
+        rotationX = transform.rotation.eulerAngles.x;
+        rotationY = transform.rotation.eulerAngles.y;
 
         moveAction = InputSystem.actions.FindAction("Move");
         lookAction = InputSystem.actions.FindAction("Look");
@@ -58,7 +62,20 @@ public class CameraOrbit : MonoBehaviour
             rotationY += horizontalInput * rotationSpeed * 3;
         }
 
-        Quaternion rotation = Quaternion.Euler(0, rotationY, 0);
+        if (!IsShimmyLocked && lookValue.y != 0)
+        {
+            rotationX += lookValue.y * rotationSpeed * -3;
+            if (rotationX < -40)
+            {
+                rotationX = -40;
+            }
+            else if (rotationX > 40)
+            {
+                rotationX = 40;
+            }
+        }
+
+        Quaternion rotation = Quaternion.Euler(rotationX, rotationY, 0);
         Vector3 newPosition = target.position - (rotation * offset);
 
         if (IsShimmyLocked)
