@@ -11,7 +11,6 @@ public class CameraOrbit : MonoBehaviour
     private float rotationX;
     private Vector3 offset;
     private Vector3 originalOffset;
-    private float originalDistanceFromPlayer;
     private GameObject obstructingObject;
 
     InputAction moveAction;
@@ -27,7 +26,6 @@ public class CameraOrbit : MonoBehaviour
         offset.x = Mathf.Abs(offset.x);
         offset.z = Mathf.Abs(offset.z);
         originalOffset = new Vector3(offset.x, offset.y, offset.z);
-        originalDistanceFromPlayer = Vector3.Distance(transform.position, target.position);
 
         rotationX = transform.rotation.eulerAngles.x;
         rotationY = transform.rotation.eulerAngles.y;
@@ -79,7 +77,11 @@ public class CameraOrbit : MonoBehaviour
         }
 
         Quaternion rotation = Quaternion.Euler(rotationX, rotationY, 0);
-        Vector3 newPosition = target.position - (rotation * offset);
+
+        Vector3 desiredPosition =
+            target.position - (rotation * offset);
+
+        Vector3 newPosition = transform.position;
 
         if (IsShimmyLocked)
         {
@@ -88,38 +90,34 @@ public class CameraOrbit : MonoBehaviour
         }
         else
         {
-            CheckForObstructions(newPosition);
+            CheckForObstructions(desiredPosition);
             if (obstructingObject != null)
             {
+                float desiredDistanceFromPlayer = Vector3.Distance(desiredPosition, target.position);
                 float distanceFromPlayer = Vector3.Distance(newPosition, target.position);
                 float distanceFromObstructingObject = Vector3.Distance(newPosition, obstructingObject.transform.position);
+                bool isObstructingObjectInFront = distanceFromObstructingObject < desiredDistanceFromPlayer
+                  || distanceFromObstructingObject < distanceFromPlayer;
+                // bool isObstructingObjectInFront = distanceFromObstructingObject < distanceFromPlayer;
 
                 Collider[] colliders = Physics.OverlapSphere(
-                    newPosition,
+                    desiredPosition,
                     0.01f
                 );
                 bool isInObstruction = colliders.Length > 0;
 
-                Debug.Log("Distance from player: " + distanceFromPlayer);
-                Debug.Log("Distance from obstruction: " + distanceFromObstructingObject);
-                Debug.Log("camera is in a collider: " + isInObstruction);
-                if ((distanceFromObstructingObject < distanceFromPlayer || isInObstruction) && distanceFromPlayer > .5f)
+                if (isObstructingObjectInFront || isInObstruction)
                 {
-                    Vector3 playerCenter = target.position;
-                    playerCenter.y += 1;
-                    newPosition = Vector3.MoveTowards(newPosition, playerCenter, Time.deltaTime);
-                    //offset = target.position - transform.position;
-                    //offset.x = Mathf.Abs(offset.x);
-                    //offset.z = Mathf.Abs(offset.z);
+                    if (distanceFromPlayer > 3)
+                    {
+                      Vector3 playerCenter = target.position;
+                      playerCenter.y += 2;
+                      newPosition = Vector3.MoveTowards(transform.position, playerCenter, 5 * Time.deltaTime);
+                    }
                 }
-                else if (Mathf.Abs(offset.x) < originalOffset.x || Mathf.Abs(offset.z) < originalOffset.z)
+                else
                 {
-                    // move away from player until the original offset is reached
-                    //Vector3 originalPositionByOffset = newPosition - (Quaternion.Euler(rotationX, rotationY, 0) * originalOffset);
-                    //newPosition = Vector3.MoveTowards(newPosition, originalPositionByOffset, Time.deltaTime);
-                    //offset = target.position - transform.position;
-                    //offset.x = Mathf.Abs(offset.x);
-                    //offset.z = Mathf.Abs(offset.z);
+                  newPosition = desiredPosition;
                 }
             }
 
