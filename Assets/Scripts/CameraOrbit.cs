@@ -85,7 +85,7 @@ public class CameraOrbit : MonoBehaviour
 
         if (IsShimmyLocked)
         {
-            transform.position = Vector3.MoveTowards(transform.position, newPosition, 5 * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, desiredPosition, 5 * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5 * Time.deltaTime);
         }
         else
@@ -106,7 +106,9 @@ public class CameraOrbit : MonoBehaviour
                 );
                 bool isInObstruction = colliders.Length > 0;
 
-                if (isObstructingObjectInFront || isInObstruction)
+                // TEMPORARILY DISABLE CAMERA OBSTRUCTION HANDLING
+                if (false)
+                //if (isObstructingObjectInFront || isInObstruction)
                 {
                     if (distanceFromPlayer > 3)
                     {
@@ -121,10 +123,10 @@ public class CameraOrbit : MonoBehaviour
                 }
             }
 
+            transform.position = newPosition;
+            transform.LookAt(target);
         }
 
-        transform.position = newPosition;
-        transform.LookAt(target);
     }
 
     public void CheckForObstructions(Vector3 newPosition)

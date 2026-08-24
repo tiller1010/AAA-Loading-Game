@@ -105,11 +105,14 @@ public class Enemy : MonoBehaviour
                 // Do not run into walls while wandering
                 RaycastHit obstacleCheck;
                 Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out obstacleCheck);
-                if (obstacleCheck.collider.gameObject.CompareTag("GameWorld") && obstacleCheck.distance < 3)
+                if (obstacleCheck.collider != null)
                 {
-                    StopCoroutine("WaitAndChangeDirection");
-                    StartCoroutine("WaitAndChangeDirection");
-                    return;
+                    if (obstacleCheck.collider.gameObject.CompareTag("GameWorld") && obstacleCheck.distance < 3)
+                    {
+                        StopCoroutine("WaitAndChangeDirection");
+                        StartCoroutine("WaitAndChangeDirection");
+                        return;
+                    }
                 }
             }
 
