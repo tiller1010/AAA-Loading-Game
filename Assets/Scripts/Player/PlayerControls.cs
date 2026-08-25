@@ -22,6 +22,8 @@ public class PlayerControls : MonoBehaviour
     private int attackIndex = 0;
     private int attackAnimationsCount = 3;
     public bool isShimmying = false;
+    public bool canAlternateShimmyDirection = false;
+    public int shimmyTriggers = 0;
     private bool canPauseAnimations = false;
 
     [SerializeField] private GameObject attackTriggerPrefab;
@@ -58,6 +60,31 @@ public class PlayerControls : MonoBehaviour
             horizontalInput = moveValue.x;
         }
 
+        if (canAlternateShimmyDirection && isShimmying)
+        {
+          if (moveValue.x > 0)
+          {
+              transform.Rotate(0, 90, 0);
+          }
+          else if (moveValue.x < 0)
+          {
+              transform.Rotate(0, -90, 0);
+          }
+
+          if (moveValue.x != 0)
+          {
+              GameObject camera = GameObject.Find("Main Camera");
+              if (camera != null)
+              {
+                  CameraOrbit cameraOrbit = camera.GetComponent<CameraOrbit>();
+                  cameraOrbit.SetShimmyLocked(true);
+                  cameraOrbit.SetShimmyLockRotation(transform.rotation.eulerAngles.y);
+              }
+
+              StartCoroutine("CanAlternateShimmyTimeout");
+          }
+        }
+
         float verticalInput = moveValue.y;
 
         if (horizontalInput != 0 || verticalInput != 0)
@@ -86,10 +113,9 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-        if (shimmyStartPosition != null && !isShimmying)
+        if (shimmyStartPosition != null)
         {
             transform.position = (Vector3)shimmyStartPosition;
-            SetShimmyStartPosition(null);
         }
         else
         {
@@ -98,6 +124,8 @@ public class PlayerControls : MonoBehaviour
 
             characterController.Move(movement);
         }
+
+        SetShimmyStartPosition(null);
 
         if (!isShimmying && attackAction.triggered && !isAttacking && !PauseMenu.GameIsPaused)
         {
@@ -190,6 +218,13 @@ public class PlayerControls : MonoBehaviour
 
     public void SetShimmyStartPosition(Vector3? position)
     {
-        //shimmyStartPosition = position;
+        shimmyStartPosition = position;
+    }
+    
+    IEnumerator CanAlternateShimmyTimeout()
+    {
+        canAlternateShimmyDirection = false;
+        yield return new WaitForSeconds(.5f);
+        canAlternateShimmyDirection = true;
     }
 }

@@ -8,6 +8,7 @@ public class ShimmyTrigger : MonoBehaviour
         if (gameObject.tag == "Player")
         {
             PlayerControls playerControls = gameObject.GetComponent<PlayerControls>();
+            playerControls.shimmyTriggers++;
             if (!playerControls.GetIsShimmying())
             {
                 playerControls.SetMoveSpeed(1f);
@@ -38,6 +39,15 @@ public class ShimmyTrigger : MonoBehaviour
         if (gameObject.tag == "Player")
         {
             PlayerControls playerControls = gameObject.GetComponent<PlayerControls>();
+            playerControls.shimmyTriggers--;
+            if (playerControls.shimmyTriggers < 0)
+            {
+                playerControls.shimmyTriggers = 0;
+            }
+            if (playerControls.shimmyTriggers > 0)
+            {
+                return;
+            }
             playerControls.SetIsShimmying(false);
             playerControls.SetMoveSpeed(3f);
             playerControls.SetRotationSpeed(5f);
