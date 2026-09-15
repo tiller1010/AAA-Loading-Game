@@ -8,27 +8,27 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Chimney
-    second: {fileID: 2100000, guid: 0b5c7834d16b89f42ac08f571926cccd, type: 2}
+    second: {fileID: 2100000, guid: b672dba5a3bdf364fab1c8901c37ff33, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: DoorsAndWindows
-    second: {fileID: 2100000, guid: 81a83ca2c824e3148beebba5fc5d8562, type: 2}
+    second: {fileID: 2100000, guid: 1dc62dff71835704eb49b6028400570d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Porch
-    second: {fileID: 2100000, guid: 35dc1ee216a3ca74cadfb37ba2ce8876, type: 2}
+    second: {fileID: 2100000, guid: 2a37025bcefb86242a8a863d872c25e1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Roof
-    second: {fileID: 2100000, guid: 2f0d73eefa524a34ba5219dfcebb6f1e, type: 2}
+    second: {fileID: 2100000, guid: be993a6384aba234ca237d1ba7e68af2, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: DoorsAndWindows
-    second: {fileID: 2800000, guid: 6c60e95cf91f244489fc0f37b14cbd6b, type: 3}
+    second: {fileID: 2800000, guid: 37abb3af3e4988642b86943a2291b5be, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

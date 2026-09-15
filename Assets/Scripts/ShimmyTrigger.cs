@@ -11,7 +11,7 @@ public class ShimmyTrigger : MonoBehaviour
             playerControls.shimmyTriggers++;
             if (!playerControls.GetIsShimmying())
             {
-                playerControls.SetMoveSpeed(1f);
+                playerControls.SetMoveSpeed(2f);
                 playerControls.SetRotationSpeed(0f);
                 playerControls.SetRotation(transform.rotation);
 

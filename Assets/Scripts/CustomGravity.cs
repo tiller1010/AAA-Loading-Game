@@ -8,6 +8,7 @@ public class CustomGravity : MonoBehaviour
     PlayerControls playerControls;
 
     public float jumpSpeed = 15;
+    public bool canJump = true;
     public float gravity = -9f;
     public float terminalVelocity = -10;
     public float minFallSpeed = -1.5f;
@@ -34,7 +35,7 @@ public class CustomGravity : MonoBehaviour
 
         if (hitGround)
         {
-            if (jumpAction.triggered)
+            if (jumpAction.triggered && canJump)
             {
                 verticalSpeed = jumpSpeed;
             }

@@ -17,17 +17,18 @@ public class PlayerControls : MonoBehaviour
     private Animator animator;
     private PlayerProperties playerProperties;
 
-    private Vector3? shimmyStartPosition;
     private bool isAttacking = false;
     private int attackIndex = 0;
     private int attackAnimationsCount = 3;
+    [SerializeField] private GameObject attackTriggerPrefab;
+    private GameObject attackTrigger;
+
+    private Vector3? shimmyStartPosition;
     public bool isShimmying = false;
+    public Vector3 shimmyAlternatorCenter = Vector3.zero;
     public bool canAlternateShimmyDirection = false;
     public int shimmyTriggers = 0;
     private bool canPauseAnimations = false;
-
-    [SerializeField] private GameObject attackTriggerPrefab;
-    private GameObject attackTrigger;
 
     void Start()
     {
@@ -73,6 +74,14 @@ public class PlayerControls : MonoBehaviour
 
           if (moveValue.x != 0)
           {
+              Debug.Log(shimmyAlternatorCenter);
+              if (shimmyAlternatorCenter != Vector3.zero)
+              {
+                  // transform.position = new Vector3(1000, 1000, 1000);
+                  transform.position = shimmyAlternatorCenter;
+                  shimmyAlternatorCenter = Vector3.zero;
+              }
+
               GameObject camera = GameObject.Find("Main Camera");
               if (camera != null)
               {
@@ -214,6 +223,12 @@ public class PlayerControls : MonoBehaviour
 
         isShimmying = newIsShimmying;
         animator.SetBool("Shimmying", isShimmying);
+
+        CustomGravity customGravity = GetComponent<CustomGravity>();
+        if (customGravity != null)
+        {
+          customGravity.canJump = !isShimmying;
+        }
     }
 
     public void SetShimmyStartPosition(Vector3? position)
