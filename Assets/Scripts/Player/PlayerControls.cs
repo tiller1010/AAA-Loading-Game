@@ -74,11 +74,11 @@ public class PlayerControls : MonoBehaviour
 
           if (moveValue.x != 0)
           {
-              Debug.Log(shimmyAlternatorCenter);
               if (shimmyAlternatorCenter != Vector3.zero)
               {
-                  // transform.position = new Vector3(1000, 1000, 1000);
-                  transform.position = shimmyAlternatorCenter;
+                  Vector3 destination = shimmyAlternatorCenter;
+                  destination.y -= characterController.height;
+                  characterController.Move(destination - transform.position);
                   shimmyAlternatorCenter = Vector3.zero;
               }
 
