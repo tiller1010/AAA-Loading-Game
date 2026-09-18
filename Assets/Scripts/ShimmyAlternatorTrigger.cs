@@ -13,7 +13,7 @@ public class ShimmyAlternatorTrigger : MonoBehaviour
             PlayerControls playerControls = otherGameObject.GetComponent<PlayerControls>();
             playerControls.canAlternateShimmyDirection = true;
             playerControls.shimmyAlternatorCenter = transform.position;
-            hudText.SetText("<-- Go left or right -->");
+            hudText.SetText("Choose a direction");
         }
     }
 

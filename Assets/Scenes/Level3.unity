@@ -1361,6 +1361,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 48211568039753100, guid: 9f84b8d5dcbf60f48805f4929079debd, type: 3}
+      propertyPath: hudText
+      value: 
+      objectReference: {fileID: 344084180}
     - target: {fileID: 8062749247896423660, guid: 9f84b8d5dcbf60f48805f4929079debd, type: 3}
       propertyPath: m_Name
       value: BookcaseShimmyFork

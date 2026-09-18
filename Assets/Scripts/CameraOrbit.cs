@@ -51,6 +51,9 @@ public class CameraOrbit : MonoBehaviour
             // Need to set to forward of shimmy trigger
             rotationY = ShimmyLockRotation;
 
+            // Looking slightly down on player
+            rotationX = 4.4f;
+
             // Fixes camera centering with cinemachine
             offset.x *= .5f;
         }
@@ -107,20 +110,19 @@ public class CameraOrbit : MonoBehaviour
                 bool isInObstruction = colliders.Length > 0;
 
                 // TEMPORARILY DISABLE CAMERA OBSTRUCTION HANDLING
-                if (false)
-                //if (isObstructingObjectInFront || isInObstruction)
-                {
-                    if (distanceFromPlayer > 3)
-                    {
-                      Vector3 playerCenter = target.position;
-                      playerCenter.y += 2;
-                      newPosition = Vector3.MoveTowards(transform.position, playerCenter, 5 * Time.deltaTime);
-                    }
-                }
-                else
-                {
+                // if (isObstructingObjectInFront || isInObstruction)
+                // {
+                //     if (distanceFromPlayer > 3)
+                //     {
+                //       Vector3 playerCenter = target.position;
+                //       playerCenter.y += 2;
+                //       newPosition = Vector3.MoveTowards(transform.position, playerCenter, 5 * Time.deltaTime);
+                //     }
+                // }
+                // else
+                // {
                   newPosition = desiredPosition;
-                }
+                // }
             }
 
             transform.position = newPosition;

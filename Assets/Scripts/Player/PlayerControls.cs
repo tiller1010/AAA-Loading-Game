@@ -124,7 +124,7 @@ public class PlayerControls : MonoBehaviour
 
         if (shimmyStartPosition != null)
         {
-            transform.position = (Vector3)shimmyStartPosition;
+            characterController.Move((Vector3)shimmyStartPosition - transform.position);
         }
         else
         {
