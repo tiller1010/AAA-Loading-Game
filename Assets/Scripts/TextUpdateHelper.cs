@@ -60,5 +60,13 @@ public class TextUpdateHelper
         showText = true;
     }
 
+    public void ClearText()
+    {
+        text = "";
+        renderedText = "";
+        showText = false;
+        hudText.SetText("");
+    }
+
 }
 

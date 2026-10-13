@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System.Collections;
 
 public class Interact : MonoBehaviour
 {
   public float interactDistance = 3.5f;
   public string npcDialogue = "Hello there!";
   private bool canInteract = false;
+  private bool isTalking = false;
   public GameObject InteractTooltipPrefab;
   private GameObject InteractTooltipInstance;
+  private Animator animator;
 
   InputAction interactAction;
   [SerializeField] TMP_Text hudText;
@@ -19,6 +22,7 @@ public class Interact : MonoBehaviour
     interactAction = InputSystem.actions.FindAction("Interact");
     textUpdateHelper = new TextUpdateHelper();
     textUpdateHelper.hudText = hudText;
+    animator = GetComponent<Animator>();
   }
 
   void Update()
@@ -82,7 +86,20 @@ public class Interact : MonoBehaviour
 
   void Talk()
   {
+    if (isTalking) return;
+    isTalking = true;
+    transform.LookAt(GameObject.FindWithTag("Player").transform);
     textUpdateHelper.SetText(npcDialogue);
+    animator.SetBool("IsTalking", true);
+    StartCoroutine(EndTalkAfterDelay(3f));
+  }
+  
+  IEnumerator EndTalkAfterDelay(float delay)
+  {
+    yield return new WaitForSeconds(delay);
+    isTalking = false;
+    animator.SetBool("IsTalking", false);
+    textUpdateHelper.ClearText();
   }
 
 }
