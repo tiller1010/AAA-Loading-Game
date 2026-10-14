@@ -69,6 +69,8 @@ public class Interact : MonoBehaviour
 
   public bool CheckCanInteract()
   {
+    if (isTalking) return false;
+
     Transform player = GameObject.FindWithTag("Player").transform;
     if (Vector3.Distance(player.position, transform.position) <= interactDistance)
     {
@@ -88,10 +90,19 @@ public class Interact : MonoBehaviour
   {
     if (isTalking) return;
     isTalking = true;
+    canInteract = false;
     transform.LookAt(GameObject.FindWithTag("Player").transform);
+
+    // Keep upright
+    transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+
     textUpdateHelper.SetText(npcDialogue);
     animator.SetBool("IsTalking", true);
     StartCoroutine(EndTalkAfterDelay(3f));
+    if (InteractTooltipInstance != null)
+    {
+        InteractTooltipInstance.SetActive(false);
+    }
   }
   
   IEnumerator EndTalkAfterDelay(float delay)
@@ -100,6 +111,10 @@ public class Interact : MonoBehaviour
     isTalking = false;
     animator.SetBool("IsTalking", false);
     textUpdateHelper.ClearText();
+    if (InteractTooltipInstance != null)
+    {
+        InteractTooltipInstance.SetActive(canInteract);
+    }
   }
 
 }
