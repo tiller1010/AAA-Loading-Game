@@ -83,6 +83,16 @@ public class Interact : MonoBehaviour
 
   public void InteractAction()
   {
+    IActionable actionable = GetComponent<IActionable>();
+    if (actionable != null && actionable.CanAct)
+    {
+      actionable.ExecuteAction();
+      // Optionally still talk, or skip talking. 
+      // The user said "when the canAct property is true, the npc script will Act when interacted with"
+      // I'll make it so it does the action AND talks, or maybe just the action.
+      // Usually, if there's a specific action, that's the priority.
+      return; 
+    }
     Talk();
   }
 
