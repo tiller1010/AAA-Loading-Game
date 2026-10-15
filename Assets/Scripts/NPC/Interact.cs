@@ -7,8 +7,11 @@ public class Interact : MonoBehaviour
 {
   public float interactDistance = 3.5f;
   public string npcDialogue = "Hello there!";
+  public string actionDialogue = "I'll open it for you!";
+  public string afterActionDialogue = "The door is open now.";
   private bool canInteract = false;
   private bool isTalking = false;
+  private bool actionPerformed = false;
   public GameObject InteractTooltipPrefab;
   private GameObject InteractTooltipInstance;
   private Animator animator;
@@ -87,16 +90,22 @@ public class Interact : MonoBehaviour
     if (actionable != null && actionable.CanAct)
     {
       actionable.ExecuteAction();
-      // Optionally still talk, or skip talking. 
-      // The user said "when the canAct property is true, the npc script will Act when interacted with"
-      // I'll make it so it does the action AND talks, or maybe just the action.
-      // Usually, if there's a specific action, that's the priority.
+      actionPerformed = true;
+      Talk(actionDialogue);
       return; 
     }
-    Talk();
+
+    if (actionPerformed)
+    {
+      Talk(afterActionDialogue);
+    }
+    else
+    {
+      Talk(npcDialogue);
+    }
   }
 
-  void Talk()
+  void Talk(string dialogue)
   {
     if (isTalking) return;
     isTalking = true;
@@ -106,7 +115,7 @@ public class Interact : MonoBehaviour
     // Keep upright
     transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
 
-    textUpdateHelper.SetText(npcDialogue);
+    textUpdateHelper.SetText(dialogue);
     animator.SetBool("IsTalking", true);
     StartCoroutine(EndTalkAfterDelay(3f));
     if (InteractTooltipInstance != null)

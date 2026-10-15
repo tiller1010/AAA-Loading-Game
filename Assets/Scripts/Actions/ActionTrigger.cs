@@ -12,6 +12,7 @@ public class ActionTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             SetActionState(activateOnEnter);
+            Destroy(gameObject); // Destroy the trigger after activation
         }
     }
 

@@ -21,6 +21,8 @@ public class DoorAction : MonoBehaviour, IActionable
             return;
         }
 
+        CanAct = false;
+
         if (!isOpen)
         {
             StartCoroutine(OpenDoorRoutine());
