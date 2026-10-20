@@ -1129,8 +1129,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.49076265, y: -0.009418414, z: 0.0052875117, w: 0.8712264}
+  m_LocalPosition: {x: 1.425314, y: 63.08482, z: -31.40469}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1259,7 +1259,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 3.7349, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 626496130}
@@ -1892,6 +1892,10 @@ MonoBehaviour:
   afterActionDialogue: The door is open now.
   InteractTooltipPrefab: {fileID: 5650375097852243186, guid: b4c67bf55fa7bd24b921a1e055636c8a, type: 3}
   hudText: {fileID: 1985389910}
+  talkingAudioClips:
+  - {fileID: 8300000, guid: 30d9b32248d616b42b8015b61c065bdc, type: 3}
+  - {fileID: 8300000, guid: e18afdd4a1d1e23469cbc298f4cef6c5, type: 3}
+  - {fileID: 8300000, guid: 015cdee80f1c900479e920f547df848a, type: 3}
 --- !u!114 &653830413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2041,6 +2045,7 @@ MonoBehaviour:
   afterActionDialogue: The door is open now.
   InteractTooltipPrefab: {fileID: 5650375097852243186, guid: b4c67bf55fa7bd24b921a1e055636c8a, type: 3}
   hudText: {fileID: 1985389910}
+  talkingAudioClips: []
 --- !u!1 &669130743 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7b4372b05ccde174681ae08bee0aafbd, type: 3}
@@ -3358,7 +3363,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.99997085, z: -0, w: -0.0076387273}
   m_LocalPosition: {x: -13.1, y: 0, z: -8.7}
-  m_LocalScale: {x: 2.9553654, y: 1, z: 2.3836558}
+  m_LocalScale: {x: 2.9553654, y: 3.7946076, z: 2.3836558}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1496131402}
@@ -4496,7 +4501,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 5.381, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 147856412}

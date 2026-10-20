@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Interact : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Interact : MonoBehaviour
   private bool canInteract = false;
   private bool isTalking = false;
   private bool actionPerformed = false;
+
   public GameObject InteractTooltipPrefab;
   private GameObject InteractTooltipInstance;
   private Animator animator;
@@ -20,12 +22,16 @@ public class Interact : MonoBehaviour
   [SerializeField] TMP_Text hudText;
   public TextUpdateHelper textUpdateHelper;
 
+  private AudioSource audioSource;
+  public List<AudioClip> talkingAudioClips = new List<AudioClip>();
+
   void Start()
   {
     interactAction = InputSystem.actions.FindAction("Interact");
     textUpdateHelper = new TextUpdateHelper();
     textUpdateHelper.hudText = hudText;
     animator = GetComponent<Animator>();
+    audioSource = this.gameObject.AddComponent<AudioSource>();
   }
 
   void Update()
@@ -115,13 +121,24 @@ public class Interact : MonoBehaviour
     // Keep upright
     transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
 
-    textUpdateHelper.SetText(dialogue);
+    textUpdateHelper.SetText(dialogue, this.PlayRandomAudioClip);
     animator.SetBool("IsTalking", true);
     StartCoroutine(EndTalkAfterDelay(3f));
     if (InteractTooltipInstance != null)
     {
         InteractTooltipInstance.SetActive(false);
     }
+  }
+
+  public void PlayRandomAudioClip()
+  {
+    if (talkingAudioClips.Count == 0) return;
+
+    audioSource.Stop();
+
+    int randomIndex = Random.Range(0, talkingAudioClips.Count);
+    AudioClip clip = talkingAudioClips[randomIndex];
+    audioSource.PlayOneShot(clip);
   }
   
   IEnumerator EndTalkAfterDelay(float delay)

@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,6 +10,7 @@ public class TextUpdateHelper
     public List<TextData> additionalTexts = new List<TextData>();
     private int additionalTextIndex = 0;
     private float additionalTextDelay = 0;
+    private Action onAfterAddTextCharacter;
 
     private string renderedText = "";
     private bool showText;
@@ -23,6 +25,10 @@ public class TextUpdateHelper
           {
             renderedText = text.Substring(0, renderedText.Length + 1);
             hudText.SetText(renderedText);
+            if (onAfterAddTextCharacter != null)
+            {
+                onAfterAddTextCharacter();
+            }
           }
           else
           {
@@ -53,11 +59,12 @@ public class TextUpdateHelper
         showText = true;
     }
 
-    public void SetText(string newText)
+    public void SetText(string newText, Action addTextCharacterCallback = null)
     {
         text = newText;
         renderedText = "";
         showText = true;
+        onAfterAddTextCharacter = addTextCharacterCallback;
     }
 
     public void ClearText()
