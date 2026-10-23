@@ -14,12 +14,14 @@ public class CustomGravity : MonoBehaviour
     public float minFallSpeed = -1.5f;
 
     private float verticalSpeed;
+    private Animator animator;
 
     void Start()
     {
         jumpAction = InputSystem.actions.FindAction("Jump");
         characterController = GetComponent<CharacterController>();
         playerControls = GetComponent<PlayerControls>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -35,8 +37,11 @@ public class CustomGravity : MonoBehaviour
 
         if (hitGround)
         {
+            if (animator != null) animator.SetBool("Jumping", false);
+
             if (jumpAction.triggered && canJump)
             {
+                if (animator != null) animator.SetBool("Jumping", true);
                 verticalSpeed = jumpSpeed;
             }
             else
