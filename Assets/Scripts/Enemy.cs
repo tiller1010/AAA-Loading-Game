@@ -197,6 +197,8 @@ public class Enemy : MonoBehaviour
         animator.SetBool("TakingDamage", false);
     }
 
+    public bool IsAlive() => alive;
+
     public void Die()
     {
         Destroy(attackTrigger);
