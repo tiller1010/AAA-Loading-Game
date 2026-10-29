@@ -126,7 +126,15 @@ public class CameraOrbit : MonoBehaviour
             }
 
             transform.position = newPosition;
-            transform.LookAt(target);
+
+            if (targetIsLocked && lockedTargetTransform)
+            {
+                transform.LookAt(lockedTargetTransform);
+            }
+            else
+            {
+                transform.LookAt(target);
+            }
         }
 
     }
@@ -157,5 +165,19 @@ public class CameraOrbit : MonoBehaviour
     public void SetShimmyLockRotation(float rotation)
     {
         ShimmyLockRotation = rotation;
+    }
+
+    private Transform lockedTargetTransform;
+
+    public void SetLockTarget(Transform target)
+    {
+        lockedTargetTransform = target;
+    }
+
+    private bool targetIsLocked = false;
+
+    public void SetTargetIsLocked(bool locked)
+    {
+      targetIsLocked = locked;
     }
 }

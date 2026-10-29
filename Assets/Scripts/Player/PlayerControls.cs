@@ -12,6 +12,7 @@ public class PlayerControls : MonoBehaviour
 
     InputAction moveAction;
     InputAction attackAction;
+    InputAction targetAction;
 
     private CharacterController characterController;
     private Animator animator;
@@ -34,6 +35,7 @@ public class PlayerControls : MonoBehaviour
     {
         moveAction = InputSystem.actions.FindAction("Move");
         attackAction = InputSystem.actions.FindAction("Attack");
+        targetAction = InputSystem.actions.FindAction("LockTarget");
 
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
@@ -49,6 +51,29 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         if (!playerProperties.GetIsAlive()) return;
+
+        TargetingSystem targetingSystem = GetComponent<TargetingSystem>();
+
+        if (targetingSystem != null)
+        {
+            if (targetAction.triggered)
+            {
+                targetingSystem.ToggleLock();
+                if (targetingSystem.IsLocked()) targetingSystem.UpdateTarget();
+            }
+
+            GameObject camera = GameObject.Find("Main Camera");
+
+            if (camera != null)
+            {
+                CameraOrbit cameraOrbit = camera.GetComponent<CameraOrbit>();
+                cameraOrbit.SetTargetIsLocked(targetingSystem.IsLocked());
+                if (targetingSystem.IsLocked())
+                {
+                    cameraOrbit.SetLockTarget(targetingSystem.GetCurrentTarget());
+                }
+            }
+        }
 
         Vector3 movement = Vector3.zero;
 

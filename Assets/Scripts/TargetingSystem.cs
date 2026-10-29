@@ -11,6 +11,11 @@ public class TargetingSystem : MonoBehaviour
     public Transform GetCurrentTarget() => currentTarget;
     public bool IsLocked() => isLocked;
 
+    public void ToggleLock()
+    {
+        isLocked = !isLocked;
+    }
+
     public void SetLock(bool lockTarget)
     {
         isLocked = lockTarget;
