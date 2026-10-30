@@ -94,6 +94,8 @@ public class CameraOrbit : MonoBehaviour
         else
         {
             CheckForObstructions(desiredPosition);
+            newPosition = desiredPosition;
+
             if (obstructingObject != null)
             {
                 float desiredDistanceFromPlayer = Vector3.Distance(desiredPosition, target.position);
@@ -101,7 +103,6 @@ public class CameraOrbit : MonoBehaviour
                 float distanceFromObstructingObject = Vector3.Distance(newPosition, obstructingObject.transform.position);
                 bool isObstructingObjectInFront = distanceFromObstructingObject < desiredDistanceFromPlayer
                   || distanceFromObstructingObject < distanceFromPlayer;
-                // bool isObstructingObjectInFront = distanceFromObstructingObject < distanceFromPlayer;
 
                 Collider[] colliders = Physics.OverlapSphere(
                     desiredPosition,
@@ -109,20 +110,15 @@ public class CameraOrbit : MonoBehaviour
                 );
                 bool isInObstruction = colliders.Length > 0;
 
-                // TEMPORARILY DISABLE CAMERA OBSTRUCTION HANDLING
-                // if (isObstructingObjectInFront || isInObstruction)
-                // {
-                //     if (distanceFromPlayer > 3)
-                //     {
-                //       Vector3 playerCenter = target.position;
-                //       playerCenter.y += 2;
-                //       newPosition = Vector3.MoveTowards(transform.position, playerCenter, 5 * Time.deltaTime);
-                //     }
-                // }
-                // else
-                // {
-                  newPosition = desiredPosition;
-                // }
+                if (isObstructingObjectInFront || isInObstruction)
+                {
+                    if (distanceFromPlayer > 3)
+                    {
+                        Vector3 playerCenter = target.position;
+                        playerCenter.y += 2;
+                        newPosition = Vector3.MoveTowards(transform.position, playerCenter, 5 * Time.deltaTime);
+                    }
+                }
             }
 
             transform.position = newPosition;
@@ -141,10 +137,12 @@ public class CameraOrbit : MonoBehaviour
 
     public void CheckForObstructions(Vector3 newPosition)
     {
+        obstructingObject = null;
         RaycastHit obstacleCheck;
-        Physics.Raycast(newPosition, transform.TransformDirection(Vector3.forward), out obstacleCheck);
-        if (!obstacleCheck.collider) return;
-        obstructingObject = obstacleCheck.collider.gameObject;
+        if (Physics.Raycast(newPosition, transform.TransformDirection(Vector3.forward), out obstacleCheck))
+        {
+            obstructingObject = obstacleCheck.collider.gameObject;
+        }
     }
 
     public void SetShimmyLocked(bool shimmyLock)
