@@ -83,6 +83,7 @@ public class PlayerControls : MonoBehaviour
                 if (targetingSystem.IsLocked())
                 {
                     cameraOrbit.SetLockTarget(targetingSystem.GetCurrentTarget());
+                    transform.LookAt(targetingSystem.GetCurrentTarget());
                 }
             }
         }

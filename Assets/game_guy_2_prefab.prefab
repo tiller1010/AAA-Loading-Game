@@ -203,6 +203,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f7a072885b762dd47b1b4e889936e711, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3620285527062924749}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f7a072885b762dd47b1b4e889936e711, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6821186386401837640}
   m_SourcePrefab: {fileID: 100100000, guid: f7a072885b762dd47b1b4e889936e711, type: 3}
 --- !u!1 &6183143991865622703 stripped
 GameObject:
@@ -310,3 +313,17 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   jumpClip: {fileID: 8300000, guid: fc93e1d57f8962044844aeacf5d3cd15, type: 3}
   landingClip: {fileID: 8300000, guid: c2725590d62d50f408fd157285b1a499, type: 3}
+--- !u!114 &6821186386401837640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6183143991865622703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6b5357b1805b643b4c94e8d2eaea59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TargetingSystem
+  targetRange: 15
+  targetAngle: 120
