@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class Enemy : MonoBehaviour
 {
@@ -205,5 +206,14 @@ public class Enemy : MonoBehaviour
         health = 0;
         alive = false;
         animator.SetBool("Alive", false);
+
+        if (playerProperties != null)
+        {
+            TargetingSystem targetingSystem = playerProperties.gameObject.GetComponent<TargetingSystem>();
+            if (targetingSystem != null)
+            {
+                targetingSystem.Untarget();
+            }
+        }
     }
 }
