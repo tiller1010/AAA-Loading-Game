@@ -30,14 +30,32 @@ public class TargetingSystem : MonoBehaviour
         if (isLocked)
         {
             // Verify target is still valid and in range and alive
-            if (currentTarget == null || !IsTargetValid(currentTarget))
+            if (currentTarget == null)
             {
-                FindBestTarget();
+              FindBestTarget();
+            }
+
+            if (!IsTargetValid(currentTarget))
+            {
+                currentTarget = null;
             }
         }
         else
         {
             FindBestTarget();
+        }
+    }
+
+    public void Untarget()
+    {
+        currentTarget = null;
+
+        GameObject camera = GameObject.Find("Main Camera");
+
+        if (camera != null)
+        {
+            CameraOrbit cameraOrbit = camera.GetComponent<CameraOrbit>();
+            cameraOrbit.SetTargetIsLocked(false);
         }
     }
 
