@@ -23,6 +23,8 @@ public class PlayerControls : MonoBehaviour
     private int attackAnimationsCount = 3;
     [SerializeField] private GameObject attackTriggerPrefab;
     private GameObject attackTrigger;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip walkingClip;
 
     private Vector3? shimmyStartPosition;
     public bool isShimmying = false;
@@ -40,6 +42,16 @@ public class PlayerControls : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         playerProperties = GetComponent<PlayerProperties>();
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+                audioSource.loop = true;
+            }
+        }
 
         if (isShimmying)
         {
@@ -137,6 +149,16 @@ public class PlayerControls : MonoBehaviour
 
             animator.SetBool("Running", true);
             animator.speed = 1f;
+
+            if (audioSource != null && walkingClip != null)
+            {
+                if (audioSource.clip != walkingClip)
+                {
+                    audioSource.clip = walkingClip;
+                    audioSource.loop = true;
+                    audioSource.Play();
+                }
+            }
         }
         else
         {
@@ -144,6 +166,12 @@ public class PlayerControls : MonoBehaviour
             if (isShimmying && canPauseAnimations)
             {
                 animator.speed = 0f;
+            }
+
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+                audioSource.clip = null;
             }
         }
 

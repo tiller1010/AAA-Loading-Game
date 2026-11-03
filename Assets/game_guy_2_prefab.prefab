@@ -250,6 +250,12 @@ MonoBehaviour:
   rotationSpeed: 5
   moveSpeed: 3
   attackTriggerPrefab: {fileID: 1604052493551559335, guid: 2d2c2ba9c5bc30f4f8d9b4a33c28a4b0, type: 3}
+  audioSource: {fileID: 0}
+  walkingClip: {fileID: 8300000, guid: 92f64b9579c7b1b458e7ec5445ca670f, type: 3}
+  isShimmying: 0
+  shimmyAlternatorCenter: {x: 0, y: 0, z: 0}
+  canAlternateShimmyDirection: 0
+  shimmyTriggers: 0
 --- !u!95 &8204208820448935323
 Animator:
   serializedVersion: 7
@@ -297,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomGravity
   jumpSpeed: 15
+  canJump: 1
   gravity: -9
   terminalVelocity: -10
   minFallSpeed: -1.5
