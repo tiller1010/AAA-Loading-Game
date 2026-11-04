@@ -23,7 +23,7 @@ public class PlayerControls : MonoBehaviour
     private int attackAnimationsCount = 3;
     [SerializeField] private GameObject attackTriggerPrefab;
     private GameObject attackTrigger;
-    [SerializeField] private AudioSource audioSource;
+    public AudioSource audioSource;
     [SerializeField] private AudioClip walkingClip;
 
     private Vector3? shimmyStartPosition;
@@ -170,7 +170,6 @@ public class PlayerControls : MonoBehaviour
 
             if (audioSource != null && audioSource.isPlaying)
             {
-                audioSource.Stop();
                 audioSource.clip = null;
             }
         }

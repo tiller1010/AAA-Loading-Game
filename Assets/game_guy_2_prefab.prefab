@@ -307,3 +307,6 @@ MonoBehaviour:
   gravity: -9
   terminalVelocity: -10
   minFallSpeed: -1.5
+  audioSource: {fileID: 0}
+  jumpClip: {fileID: 8300000, guid: fc93e1d57f8962044844aeacf5d3cd15, type: 3}
+  landingClip: {fileID: 8300000, guid: c2725590d62d50f408fd157285b1a499, type: 3}

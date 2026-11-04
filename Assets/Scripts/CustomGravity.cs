@@ -8,6 +8,7 @@ public class CustomGravity : MonoBehaviour
     PlayerControls playerControls;
 
     public float jumpSpeed = 15;
+    private bool isOnGround = true;
     public bool canJump = true;
     public float gravity = -9f;
     public float terminalVelocity = -10;
@@ -16,12 +17,22 @@ public class CustomGravity : MonoBehaviour
     private float verticalSpeed;
     private Animator animator;
 
+    public AudioSource audioSource;
+    [SerializeField] private AudioClip jumpClip;
+    [SerializeField] private AudioClip landingClip;
+
     void Start()
     {
         jumpAction = InputSystem.actions.FindAction("Jump");
         characterController = GetComponent<CharacterController>();
         playerControls = GetComponent<PlayerControls>();
         animator = GetComponent<Animator>();
+        audioSource = gameObject.GetComponent<AudioSource>();
+    }
+
+    void SyncAudioSource()
+    {
+      audioSource = playerControls.audioSource;
     }
 
     void Update()
@@ -32,7 +43,19 @@ public class CustomGravity : MonoBehaviour
         RaycastHit groundRaycastHit;
         if (verticalSpeed < 0 && Physics.Raycast(transform.position, Vector3.down, out groundRaycastHit))
         {
-            hitGround = groundRaycastHit.distance <= .12f;
+            bool newHitGround = groundRaycastHit.distance <= .12f;
+            if (newHitGround && !isOnGround)
+            {
+                SyncAudioSource();
+                if (audioSource != null && landingClip != null)
+                {
+                    audioSource.PlayOneShot(landingClip);
+                    Debug.Log("landing sound played");
+                }
+            }
+
+            hitGround = newHitGround;
+            isOnGround = newHitGround;
         }
 
         if (hitGround)
@@ -43,6 +66,12 @@ public class CustomGravity : MonoBehaviour
             {
                 if (animator != null) animator.SetBool("Jumping", true);
                 verticalSpeed = jumpSpeed;
+                SyncAudioSource();
+                if (audioSource != null && jumpClip != null)
+                {
+                    audioSource.PlayOneShot(jumpClip);
+                    Debug.Log("Jump sound played");
+                }
             }
             else
             {
