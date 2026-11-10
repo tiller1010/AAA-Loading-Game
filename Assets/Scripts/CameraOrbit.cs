@@ -114,9 +114,14 @@ public class CameraOrbit : MonoBehaviour
                 {
                     if (distanceFromPlayer > 3)
                     {
-                        Vector3 playerCenter = target.position;
-                        playerCenter.y += 2;
-                        newPosition = Vector3.MoveTowards(transform.position, playerCenter, 5 * Time.deltaTime);
+                        Vector3 relativePosition = desiredPosition - target.position;
+                        // Scale the distance (X and Z) by 0.8f but keep the height (Y) the same
+                        Vector3 newRelativePosition = new Vector3(relativePosition.x * 0.8f, relativePosition.y, relativePosition.z * 0.8f);
+                        Vector3 zoomedPosition = target.position + newRelativePosition;
+                        
+                        // Use Lerp instead of MoveTowards to make the camera respond immediately to mouse input
+                        // while smoothly transitioning to the zoomed position.
+                        newPosition = Vector3.Lerp(transform.position, zoomedPosition, 0.15f);
                     }
                 }
             }
