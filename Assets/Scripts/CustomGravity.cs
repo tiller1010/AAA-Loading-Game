@@ -9,6 +9,7 @@ public class CustomGravity : MonoBehaviour
 
     public float jumpSpeed = 15;
     private bool isOnGround = true;
+    private bool isFalling = false;
     public bool canJump = true;
     public float gravity = -9f;
     public float terminalVelocity = -10;
@@ -18,6 +19,8 @@ public class CustomGravity : MonoBehaviour
     private Animator animator;
 
     public AudioSource audioSource;
+    private float landingThreshold = 2.3f;
+    private float startFallHeight;
     [SerializeField] private AudioClip jumpClip;
     [SerializeField] private AudioClip landingClip;
 
@@ -49,8 +52,10 @@ public class CustomGravity : MonoBehaviour
                 SyncAudioSource();
                 if (audioSource != null && landingClip != null)
                 {
-                    audioSource.PlayOneShot(landingClip);
-                    Debug.Log("landing sound played");
+                    if (startFallHeight - transform.position.y > landingThreshold)
+                    {
+                        audioSource.PlayOneShot(landingClip);
+                    }
                 }
             }
 
@@ -60,6 +65,8 @@ public class CustomGravity : MonoBehaviour
 
         if (hitGround)
         {
+            startFallHeight = transform.position.y;
+
             if (animator != null) animator.SetBool("Jumping", false);
 
             if (jumpAction.triggered && canJump)
@@ -70,7 +77,6 @@ public class CustomGravity : MonoBehaviour
                 if (audioSource != null && jumpClip != null)
                 {
                     audioSource.PlayOneShot(jumpClip);
-                    Debug.Log("Jump sound played");
                 }
             }
             else
@@ -81,6 +87,14 @@ public class CustomGravity : MonoBehaviour
         else
         {
             verticalSpeed += gravity * 5 * Time.deltaTime;
+
+            bool newIsFalling = verticalSpeed < 0;
+            if (newIsFalling && !isFalling)
+            {
+                startFallHeight = transform.position.y;
+            }
+            isFalling = newIsFalling;
+
             // terminalVelocity is negative
             if (verticalSpeed < terminalVelocity)
             {
